@@ -1,0 +1,23 @@
+/* Reset styles */
+* {
+  &:before,
+  &:after,
+  & {
+    box-sizing: inherit;
+  }
+}
+
+body {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+/* Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+h1 {
+  @apply text-white;
+}
+
