@@ -1,3 +1,4 @@
+console.log('hei')
 function createHeader() {
   // Create the header HTML as a string
   const headerHTML = `
@@ -15,7 +16,6 @@ function createHeader() {
       </div>
     </header>
   `;
-
   // Insert the header HTML into the body
   document.body.insertAdjacentHTML('afterbegin', headerHTML);
 }
