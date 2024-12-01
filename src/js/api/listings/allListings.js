@@ -2,39 +2,159 @@ import { API_AUCTION_LISTINGS } from "../constants";
 console.log("API Endpoint:", API_AUCTION_LISTINGS);
 
 function generateListing(listing) {
-  const listingWrapper = document.createElement('div');
-  listingWrapper.classList.add('listing-wrapper');
+  const listingWrapper = document.createElement("div");
+  listingWrapper.classList.add(
+    "relative", 
+    "overflow-hidden", 
+    "rounded-lg",  
+    "group", 
+    "transition-colors", 
+    "duration-300"
+  );
 
-  const listingContainer = document.createElement('div');
-  listingContainer.classList.add('listing-container');
+  const listingContainer = document.createElement("div");
+  listingContainer.classList.add(
+    "h-64", 
+    "w-full", 
+    "relative", 
+    "bg-cover", 
+    "bg-center", 
+    "transition-colors", 
+    "duration-300" 
+  );
 
-  const title = document.createElement('h1');
-  title.textContent = listing.title; // Fixed property access
+  if (listing.media && Array.isArray(listing.media) && listing.media.length > 0) {
+    listingContainer.style.backgroundImage = `url(${listing.media[0].url})`;
+  } else {
+    listingContainer.style.backgroundImage =
+      "url('https://images.unsplash.com/photo-1521193089946-7aa29d1fe776?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')";
+  }
 
-  listingContainer.appendChild(title);
+  const overlay = document.createElement("div");
+  overlay.classList.add(
+    "absolute",
+    "inset-0", 
+    "bg-customDYellow",
+    "opacity-0", 
+    "lg:group-hover:opacity-100", 
+    "lg:opacity-0", 
+    "transition-opacity", 
+    "duration-300", 
+    "z-0" 
+  );
+
+  const titleSm = document.createElement("h1");
+  titleSm.textContent = listing.title;
+  titleSm.classList.add(
+    "absolute", 
+    "bottom-0", 
+    "left-0", 
+    "w-full", 
+    "bg-customDYellow", 
+    "text-black", 
+    "text-sm", 
+    "font-bold", 
+    "py-2", 
+    "px-4", 
+    "rounded-t-lg", 
+    "block", 
+    "lg:hidden",
+    "h-24",
+
+  );
+
+  const endsAtSm = document.createElement("p");
+  const endDate = new Date(listing.endsAt);
+  const now = new Date();
+  const timeDiff = endDate - now;
+  const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+
+  if (daysRemaining > 1) {
+    endsAtSm.textContent = ` ${daysRemaining} days left`;
+  } else if (daysRemaining === 1) {
+    endsAtSm.textContent = "1 day left";
+  } else {
+    endsAtSm.textContent = "Ended";
+  }
+
+  endsAtSm.classList.add(
+    "absolute", 
+    "top-2", 
+    "right-2", 
+    "bg-customBlue", 
+    "text-white", 
+    "text-xs",
+    "font-baloo",
+    "py-1", 
+    "px-2", 
+    "rounded", 
+    "block", 
+    "lg:hidden" 
+  );
+
+  const titleLg = document.createElement("h1");
+  titleLg.textContent = listing.title;
+  titleLg.classList.add(
+    "text-lg", 
+    "hidden", 
+    "lg:block", 
+    "lg:group-hover:text-black" 
+  );
+
+  const endsAtLg = document.createElement("h1");
+  endsAtLg.textContent = endsAtSm.textContent;
+  endsAtLg.classList.add(
+    "text-black", 
+    "hidden", 
+    "lg:block", 
+    "lg:group-hover:text-black" 
+  );
+
+  const contentContainerLg = document.createElement("div");
+  contentContainerLg.classList.add(
+    "absolute", 
+    "inset-0", 
+    "flex", 
+    "p-4",
+    "pt-24",
+    "flex-col", 
+    "hidden", 
+    "lg:group-hover:flex",
+    "z-10" 
+  );
+  contentContainerLg.appendChild(titleLg);
+  contentContainerLg.appendChild(endsAtLg);
+
+  listingContainer.appendChild(overlay); 
+  listingContainer.appendChild(titleSm); 
+  listingContainer.appendChild(endsAtSm);
+  listingContainer.appendChild(contentContainerLg);
+
   listingWrapper.appendChild(listingContainer);
 
   return listingWrapper;
 }
 
 function displayListings(listings) {
-  const displayListingContainer = document.getElementById('display-listings');
-  console.log("Display container:", displayListingContainer);
+  const displayListingContainer = document.getElementById("display-listings");
 
-  if (!displayListingContainer) {
-    console.error("Container for listing elements not found");
-    return;
-  }
+  displayListingContainer.classList.add(
+    "grid", 
+    "gap-4", 
+    "grid-cols-2", 
+    "lg:grid-cols-3", 
+    "p-4" 
+  );
 
-  displayListingContainer.textContent = ''; // Clear previous content
+
+  displayListingContainer.textContent = ""; 
 
   listings.forEach((listing) => {
     const listingHtml = generateListing(listing);
     displayListingContainer.appendChild(listingHtml);
   });
-
-  console.log("Listings displayed successfully.");
 }
+
 
 async function fetchListings() {
   try {
@@ -42,16 +162,16 @@ async function fetchListings() {
     if (!response.ok) {
       throw new Error("Failed to fetch listings");
     }
-    const listings = await response.json(); // Fetch response
+    const listings = await response.json(); 
     console.log("Fetched listings data:", listings);
 
-    // Access the array of items (adjust key as needed)
-    const listingsArray = listings.data || listings; // Use the correct key
+    
+    const listingsArray = listings.data || listings; 
     if (!Array.isArray(listingsArray)) {
       throw new Error("Listings is not an array");
     }
+  
 
-    // Pass the array to displayListings
     displayListings(listingsArray);
   } catch (error) {
     console.error("Error fetching listings:", error);
