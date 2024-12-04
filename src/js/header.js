@@ -1,6 +1,5 @@
 console.log('hei')
 function createHeader() {
-  // Create the header HTML as a string
   const headerHTML = `
     <header class="p-4">
       <div class="flex justify-end">
@@ -16,10 +15,8 @@ function createHeader() {
       </div>
     </header>
   `;
-  // Insert the header HTML into the body
   document.body.insertAdjacentHTML('afterbegin', headerHTML);
 }
 
-// Call the function to create the header
 createHeader();
 

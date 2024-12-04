@@ -6,15 +6,18 @@
     <title>Register</title>
     <script type="module" src="../js/app.js"></script>  
   </head>
-  <body class="bg-customLYellow mx-4 md:mx-32">
+  <body class="bg-customLYellow mx-16 md:mx-32">
     <main>
+      <section class="flex items-center justify-center mt-32">
+        <div class="text-center text-2xl font-bagel">Bidzy</div>
+      </section>
       <section class="flex flex-col items-center">
-        <h1 class="text-center">Sign up!</h1>
-        <a href="./login.html" class="text-center">
+        <h1 class="text-center text-lg">Sign up!</h1>
+        <a href="./login.html" class="text-center m-2 mb-6">
           Already a user? Login <span class="underline">here</span>
         </a>
-        <form name="register" id="register-form" class="flex flex-col">
-          <input class="text-center" 
+        <form name="register" id="register-form" class="flex flex-col w-full gap-4 md:items-center">
+          <input class="bg-customDYellow px-4 py-2 rounded-lg font-baloo text-black md:max-w-96" 
             type="text" 
             id="name" 
             name="name" 
@@ -22,14 +25,14 @@
             required 
             maxlength="50" 
           />
-          <input 
+          <input class="bg-customDYellow px-4 py-2 rounded-lg font-baloo text-black md:max-w-96"
             type="email" 
             id="email" 
             name="email" 
             placeholder="Email" 
             required 
           />
-          <input 
+          <input class="bg-customDYellow px-4 py-2 rounded-lg font-baloo text-black md:max-w-96"
             type="password" 
             id="password" 
             name="password" 
@@ -37,7 +40,7 @@
             required 
             minlength="8" 
           />
-          <button class="btn-primary" type="submit">Register</button>
+          <button class="btn-secondary md:md:max-w-96" type="submit">Sign up</button>
         </form>
       </section>
       

@@ -13,7 +13,6 @@ module.exports = {
       },
       fontFamily: {
         bagel: ['"Bagel Fat One"', 'serif'],
-        abel: ['"Abel"', 'sans-serif'],
         baloo: ['"Baloo 2"', 'sans-serif'],
       },
       fontSize: {
@@ -25,7 +24,8 @@ module.exports = {
        '3xl': '96px',
       },
       borderRadius: {
-        'md': '5px'
+        'md': '5px',
+        'lg': '10px',
       }
 
 
