@@ -8,41 +8,39 @@
   </head>
   <body class="bg-customLYellow mx-4 md:mx-32">
     <main>
-      <form name="register" id="register-form" class="register-form">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input 
+      <section class="flex flex-col items-center">
+        <h1 class="text-center">Sign up!</h1>
+        <a href="./login.html" class="text-center">
+          Already a user? Login <span class="underline">here</span>
+        </a>
+        <form name="register" id="register-form" class="flex flex-col">
+          <input class="text-center" 
             type="text" 
             id="name" 
             name="name" 
-            placeholder="Enter your name" 
+            placeholder="Username" 
             required 
             maxlength="50" 
           />
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
           <input 
             type="email" 
             id="email" 
             name="email" 
-            placeholder="Enter your email" 
+            placeholder="Email" 
             required 
           />
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
           <input 
             type="password" 
             id="password" 
             name="password" 
-            placeholder="Enter your password" 
+            placeholder="Password" 
             required 
             minlength="8" 
           />
-        </div>
-        <button type="submit">Register</button>
-      </form>
+          <button class="btn-primary" type="submit">Register</button>
+        </form>
+      </section>
+      
     </main> 
   </body>
 </html>

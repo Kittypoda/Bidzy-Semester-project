@@ -1,7 +1,6 @@
 import { API_AUTH_REGISTER } from '../constants';
 
 async function onRegister(event) {
-  console.log('onRegister function triggered.');
   event.preventDefault();
 
   const name = document.getElementById('name').value;
@@ -33,7 +32,7 @@ async function onRegister(event) {
     alert('Registration failed');
     console.error('Registration failed', error);
   } finally {
-    window.location.href = '/index.html';
+    window.location.href = '/src/html/login.html';
   }
 }
 
@@ -41,7 +40,7 @@ const form = document.querySelector('#register-form');
 console.log(form);
 
 if (form) {
-  console.log('Form found. Attaching event listener.');
+  console.log('Form found');
   form.addEventListener('submit', onRegister);
 } else {
   console.error('Form not found.');
