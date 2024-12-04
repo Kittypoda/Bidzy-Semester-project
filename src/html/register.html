@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <script type="module" src="../js/app.js"></script>  
+  </head>
+  <body class="bg-customLYellow mx-4 md:mx-32">
+    <main>
+      <form name="register" id="register-form" class="register-form">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input 
+            type="text" 
+            id="name" 
+            name="name" 
+            placeholder="Enter your name" 
+            required 
+            maxlength="50" 
+          />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            placeholder="Enter your email" 
+            required 
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            placeholder="Enter your password" 
+            required 
+            minlength="8" 
+          />
+        </div>
+        <button type="submit">Register</button>
+      </form>
+    </main> 
+  </body>
+</html>

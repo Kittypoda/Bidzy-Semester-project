@@ -1,5 +1,4 @@
 import { API_AUCTION_LISTINGS } from "../constants";
-console.log("API Endpoint:", API_AUCTION_LISTINGS);
 
 function generateListing(listing) {
   const listingWrapper = document.createElement("div");
