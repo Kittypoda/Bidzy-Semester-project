@@ -5,67 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register</title>
     <script type="module" src="../js/app.js"></script>
-    <link rel="stylesheet" href="../dist/styles.css">
+    <link rel="stylesheet" href="../css/styles.css" />
   </head>
-  <body class="bg-customLYellow mx-4 md:mx-16 lg:mx-32">
-    <main class="flex flex-col lg:grid lg:grid-cols-2 lg:gap-8 lg:items-center lg:mt-16 lg:h-screen">
-      
-      <!-- Left Section: Logo and Illustration (Hidden on Small Screens) -->
-      <section class="flex flex-col items-center space-y-8 lg:space-y-12 lg:items-start lg:block hidden">
+  <body class="bg-customLYellow mx-20 lg:mx-32">
+    <main
+      class="flex flex-col lg:grid lg:grid-cols-2  lg:items-center lg:mt-16 lg:h-screen"
+    >
+      <!--Logo and Illustration large screen -->
+      <section
+        class="flex flex-col items-center space-y-8 lg:space-y-12 lg:items-start lg:block hidden"
+      >
         <div class="text-center text-3xl font-bagel">Bidzy</div>
-        <img src="../img /illu1.png" alt="woman in front of a pc" class="w-3/4 max-w-md lg:w-full lg:max-w-lg" />
+        <img
+          src="../img /illu1.png"
+          alt="woman in front of a pc"
+          class="w-3/4 max-w-md mt-0 lg:w-full lg:max-w-lg"
+        />
       </section>
 
-      <!-- Right Section: Form -->
-      <section class="flex flex-col items-center lg:items-start lg:justify-center space-y-4">
-        <div class="text-center text-2xl font-bagel lg:hidden">Bidzy</div>
-        <h1 class="text-center text-2xl font-bold mb-2">Sign up!</h1>
-        <a href="./login.html" class="text-center text-sm mb-6">
+      <!-- large screen form -->
+      <section
+        class="flex flex-col items-center space-y-4"
+      >
+        <div class="text-center text-2xl mt-32 font-bagel lg:hidden">Bidzy</div>
+        <h1 class="text-center text-xl font-bold m-0 lg:text-2xl">Sign up!</h1>
+        <a href="./login.html" class="text-center font-baloo m-0 lg:text-sm">
           Already a user? Login <span class="underline">here</span>
         </a>
-        <form name="register" id="register-form" class="flex flex-col w-full max-w-sm gap-4">
-          <input 
-            class="bg-customDYellow px-4 py-2 rounded-lg font-baloo text-black w-full"
-            type="text" 
-            id="name" 
-            name="name" 
-            placeholder="Username" 
-            required 
-            maxlength="50" 
+        <form
+          name="register"
+          id="register-form"
+          class="flex flex-col w-full max-w-sm gap-4"
+        >
+          <input
+            class="bg-customDYellow px-4 py-2 rounded-lg font-baloo text-black w-full focus:ring focus:ring-customBlue focus:bg-white"
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Username"
+            required
+            maxlength="50"
           />
-          <input 
-            class="bg-customDYellow px-4 py-2 rounded-lg font-baloo text-black w-full"
-            type="email" 
-            id="email" 
-            name="email" 
-            placeholder="Email" 
-            required 
+          <input
+            class="bg-customDYellow px-4 py-2 rounded-lg font-baloo text-black w-full focus:ring focus:ring-customBlue focus:bg-white"
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email"
+            required
           />
-          <input 
-            class="bg-customDYellow px-4 py-2 rounded-lg font-baloo text-black w-full"
-            type="password" 
-            id="password" 
-            name="password" 
-            placeholder="Password" 
-            required 
-            minlength="8" 
+          <input
+            class="bg-customDYellow px-4 py-2 rounded-lg font-baloo text-black w-full focus:ring focus:ring-customBlue focus:bg-white"
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password"
+            required
+            minlength="8"
           />
-          <button 
-            class="bg-customBlue text-white px-4 py-2 rounded-lg font-bold hover:bg-blue-600"
-            type="submit">
-            Sign up
-          </button>
+          <button class="btn-secondary" type="submit">Sign up</button>
         </form>
       </section>
 
-      <!-- Illustration for Small Screens (Visible Only) -->
-      <img src="../img /illu1.png" alt="woman in front of a pc" class="block w-3/4 max-w-md mx-auto mt-8 lg:hidden" />
-
-    </main> 
+      <!-- Illustration for small screen -->
+      <div class="flex justify-center">
+        <img
+          src="../img /illu1.png"
+          alt="woman in front of a pc"
+          class="block w-3/4 max-w-md mx-auto mt-8 min-w-80 lg:hidden"
+        />
+      </div>
+    </main>
   </body>
 </html>
-
-
-
-
-
