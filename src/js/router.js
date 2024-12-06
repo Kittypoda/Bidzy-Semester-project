@@ -11,6 +11,10 @@ export default async function router(pathname = window.location.pathname) {
     case '/src/html/register.html':
       await import('./api/listings/oneListing.js');
       break;
+    case '/src/html/productpage.html':
+      await import('../js/header.js'); 
+      await import('../js/api/listings/oneListing.js');
+      break;
     case '/src/html/login.html':
       await import('./api/ui/login.js');
       break;
