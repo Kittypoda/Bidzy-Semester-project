@@ -11,7 +11,6 @@ function generateListing(listing) {
     "duration-300"
   );
 
-  // Create the clickable link
   const listingPageLink = document.createElement("a");
   listingPageLink.href = `./src/html/productpage.html?listingId=${listing.id}`;
   listingPageLink.classList.add("block", "h-full", "w-full");
@@ -27,7 +26,6 @@ function generateListing(listing) {
     "duration-300"
   );
 
-  // Set background image
   if (listing.media && Array.isArray(listing.media) && listing.media.length > 0) {
     listingContainer.style.backgroundImage = `url(${listing.media[0].url})`;
   } else {
@@ -124,10 +122,8 @@ function generateListing(listing) {
   listingContainer.appendChild(endsAtSm);
   listingContainer.appendChild(contentContainerLg);
 
-  // Append the listing container to the link
   listingPageLink.appendChild(listingContainer);
 
-  // Append the link to the wrapper
   listingWrapper.appendChild(listingPageLink);
 
   return listingWrapper;
