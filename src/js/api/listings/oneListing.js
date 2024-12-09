@@ -9,20 +9,34 @@ function generateSingleListing(listing) {
   const listingContainer = document.createElement('div');
   listingContainer.classList.add('listing-container');
 
-  const media = document.createElement('img');
-  if (listing.media && Array.isArray(listing.media) && listing.media.length > 0) {
-    media.src = listing.media[0].url; 
-    media.alt = listing.media[0].alt || 'Listing media'; 
-  } else {
-    media.src =
-      'https://images.unsplash.com/photo-1557683316-973673baf926?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGNvbG9yfGVufDB8fDB8fHww';
-    media.alt = 'Default media';
-  }
+  const mediaWrapper = document.createElement('div');
+mediaWrapper.classList.add(
+  'py-4',          
+  'lg:w-3/5'      
+);
+
+const media = document.createElement('img');
+media.classList.add(
+  'rounded-md',    
+  'w-full',        
+  'object-cover'   
+);
+
+if (listing.media && Array.isArray(listing.media) && listing.media.length > 0) {
+  media.src = listing.media[0].url;
+  media.alt = listing.media[0].alt || 'Listing media';
+} else {
+  media.src =
+    'https://images.unsplash.com/photo-1557683316-973673baf926?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGNvbG9yfGVufDB8fDB8fHww';
+  media.alt = 'Default media';
+}
+
 
   const title = document.createElement('h1');
   title.textContent = listing.title || 'No title available';
 
-  const endsAt = document.createElement('p');
+
+  const endsAt = document.createElement('h1');
   if (listing.endsAt) {
     const endDate = new Date(listing.endsAt);
     const now = new Date();
@@ -42,12 +56,17 @@ function generateSingleListing(listing) {
 
   const description = document.createElement('p');
   description.textContent = listing.description || 'No description available';
+  description.classList.add(
+    'lg:max-w-md',  
+  );
 
-  listingContainer.append(media, title, endsAt, description);
+  mediaWrapper.appendChild(media);
+  listingContainer.append(mediaWrapper, title, endsAt, description);
   listingWrapper.appendChild(listingContainer);
 
   return listingWrapper;
 }
+
 
 function displayOneListing(listing) {
   const displayListingContainer = document.getElementById('display-one-listing');

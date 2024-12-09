@@ -20,11 +20,15 @@ body {
 }
 
 h1 {
-  @apply font-baloo font-extrabold text-sm md:text-lg;
+  @apply font-baloo font-bold text-sm lg:text-lg;
+}
+
+p {
+  @apply font-baloo text-xs lg:text-sm
 }
 
 .btn-primary{
-  @apply bg-black text-white font-baloo font-extrabold px-4 py-2 rounded-md text-xs md:text-sm
+  @apply bg-black text-white font-baloo font-extrabold px-4 py-2 rounded-md text-xs lg:text-sm
 }
 
 .btn-secondary{
