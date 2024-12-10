@@ -5,7 +5,7 @@ function generateSingleListing(listing) {
   console.log('Listing Object:', listing);
 
   const listingWrapper = document.createElement('div');
-  listingWrapper.classList.add('single-listing-wrapper', 'flex', 'flex-col', 'md:flex-row', 'gap-8', 'items-start');
+  listingWrapper.classList.add('single-listing-wrapper', 'flex', 'mt-8', 'flex-col', 'md:flex-row', 'gap-8', 'items-start');
 
   const mediaWrapper = document.createElement('div');
   mediaWrapper.classList.add('md:w-1/2'); 

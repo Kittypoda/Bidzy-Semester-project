@@ -7,8 +7,10 @@ function generateListing(listing) {
     "overflow-hidden",
     "rounded-lg",
     "group",
+    "shadow-md",
     "transition-colors",
-    "duration-300"
+    "duration-300",
+    "hover:shadow-lg",
   );
 
   const listingPageLink = document.createElement("a");

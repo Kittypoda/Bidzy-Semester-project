@@ -13,19 +13,19 @@ function createHeader() {
         <h1>Bid it, own it, love it</h1>
       </div>
 
-      <div class="flex mt-8">
+      <div class="flex mt-4">
     <form id="search-form" class="relative w-full max-w-lg">
       <input
         type="text"
         id="search-input"
-        class=" bg-customDYellow w-full px-4 py-2 text-black font-baloo text-xs  rounded-md focus:outline-none focus:ring-2 focus:ring-customBlue focus:bg-white"
+        class=" bg-customDYellow w-full px-4 py-2 text-black shadow-md font-baloo text-xs  rounded-md focus:outline-none focus:ring-2 focus:ring-customBlue focus:bg-white"
         placeholder="Search"
       />
       <button
         type="submit"
-        class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+        class="absolute right-2 top-1/2 transform -translate-y-1/2 text-black"
       >
-        🔍
+      <i class="fas fa-search"></i>
       </button>
     </form>
   </div>
