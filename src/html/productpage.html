@@ -10,7 +10,23 @@
 <body class="bg-customLYellow mx-4 lg:mx-32">
   <header></header>
   <main>
-    <section id="display-one-listing"></section>
+    <section id="display-one-listing">
+    </section>
+    <section id="bid-section" class="mt-4">
+      <input
+        type="number"
+        id="bid-amount"
+        placeholder="Enter your bid"
+        class="bg-customDYellow rounded-lg p-2 w-full md:w-1/2"
+      />
+      <button
+        id="place-bid"
+        class="btn-secondary"
+      >
+        Bid
+      </button>
+      <p id="bid-feedback" class="mt-2 text-red-500 hidden"></p>
+    </section>
   </main>
   
 </body>
