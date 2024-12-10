@@ -15,13 +15,18 @@ async function fetchSearchResults(query) {
 }
 
 function generateSearchResult(listing) {
-  const listingWrapper = document.createElement('div');
+  const listingWrapper = document.createElement('a'); 
+  listingWrapper.href = `./productpage.html?listingId=${listing.id}`;
   listingWrapper.classList.add(
     'relative',
     'overflow-hidden',
-    'rounded-lg',
-    'shadow-lg',
-    'bg-white'
+    'rounded-md',
+    'shadow-md',
+    'bg-white',
+    'block', 
+    'transition',
+    'duration-300',
+    'hover:shadow-lg'
   );
 
   const media = document.createElement('div');
@@ -31,23 +36,33 @@ function generateSearchResult(listing) {
     : "url('https://via.placeholder.com/150')";
 
   const content = document.createElement('div');
-  content.classList.add('p-4');
+  content.classList.add('bg-customDYellow', 'p-4');
 
-  const title = document.createElement('h2');
+  const title = document.createElement('h1');
   title.textContent = listing.title || 'Untitled';
-  title.classList.add('text-lg', 'font-bold', 'truncate');
 
-  const description = document.createElement('p');
-  description.textContent = listing.description || 'No description available.';
-  description.classList.add('text-sm', 'text-gray-500', 'truncate');
+  const highestBidElement = document.createElement('h1');
+  const highestBid = listing.bids && listing.bids.length > 0 ? Math.max(...listing.bids.map(bid => bid.amount)) : 0;
+  highestBidElement.textContent = `Highest bid: ${highestBid > 0 ? `$${highestBid}` : 'No bids yet'}`;
 
-  content.appendChild(title);
-  content.appendChild(description);
+  const totalBidsElement = document.createElement('h1');
+  const totalBids = listing.bids ? listing.bids.length : 0;
+  totalBidsElement.textContent = `Total bids: ${totalBids}`;
+
+  const endsAt = document.createElement('h1');
+  const endDate = new Date(listing.endsAt);
+  const now = new Date();
+  const timeDiff = endDate - now;
+  const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+  endsAt.textContent = daysRemaining > 1 ? `${daysRemaining} days left` : daysRemaining === 1 ? '1 day left' : 'Ended';
+
+  content.append(title, highestBidElement, totalBidsElement, endsAt);
   listingWrapper.appendChild(media);
   listingWrapper.appendChild(content);
 
   return listingWrapper;
 }
+
 
 async function renderSearchResults() {
   const searchResultsContainer = document.getElementById('search-results');
