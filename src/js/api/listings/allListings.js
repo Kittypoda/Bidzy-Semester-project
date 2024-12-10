@@ -65,6 +65,22 @@ function generateListing(listing) {
     "h-24"
   );
 
+  const highestBidSm = document.createElement("h1");
+  const highestBid =
+    listing.bids && listing.bids.length > 0
+      ? Math.max(...listing.bids.map((bid) => bid.amount))
+      : 0;
+  highestBidSm.textContent = highestBid > 0 ? `Highest Bid: $${highestBid}` : "No bids yet";
+  highestBidSm.classList.add(
+    "absolute",
+    "bottom-6",
+    "left-4",
+    "text-black",
+    "text-sm",
+    "block",
+    "lg:hidden"
+  );
+
   const endsAtSm = document.createElement("p");
   const endDate = new Date(listing.endsAt);
   const now = new Date();
@@ -98,6 +114,10 @@ function generateListing(listing) {
   titleLg.textContent = listing.title;
   titleLg.classList.add("text-lg", "hidden", "lg:block", "lg:group-hover:text-black");
 
+  const highestBidLg = document.createElement("h1");
+  highestBidLg.textContent = highestBid > 0 ? `Highest Bid: $${highestBid}` : "No bids yet";
+  highestBidLg.classList.add("hidden", "lg:block", "lg:group-hover:text-black");
+
   const endsAtLg = document.createElement("h1");
   endsAtLg.textContent = endsAtSm.textContent;
   endsAtLg.classList.add("text-black", "hidden", "lg:block", "lg:group-hover:text-black");
@@ -115,12 +135,14 @@ function generateListing(listing) {
     "z-10"
   );
   contentContainerLg.appendChild(titleLg);
+  contentContainerLg.appendChild(highestBidLg);
   contentContainerLg.appendChild(endsAtLg);
 
   listingContainer.appendChild(overlay);
   listingContainer.appendChild(titleSm);
-  listingContainer.appendChild(endsAtSm);
-  listingContainer.appendChild(contentContainerLg);
+  listingContainer.appendChild(highestBidSm); 
+  listingContainer.appendChild(endsAtSm); 
+  listingContainer.appendChild(contentContainerLg); 
 
   listingPageLink.appendChild(listingContainer);
 
@@ -150,7 +172,7 @@ function displayListings(listings) {
 
 async function fetchListings() {
   try {
-    const response = await fetch(API_AUCTION_LISTINGS);
+    const response = await fetch(`${API_AUCTION_LISTINGS}?_bids=true`);
     if (!response.ok) {
       throw new Error("Failed to fetch listings");
     }
@@ -169,6 +191,3 @@ async function fetchListings() {
 }
 
 fetchListings();
-
-
-
