@@ -9,23 +9,23 @@
 </head>
 <body class="bg-customLYellow mx-4 lg:mx-32">
   <header></header>
-  <main>
+  <main class="mx-4">
     <section id="display-one-listing">
     </section>
-    <section id="bid-section" class="mt-4">
+    <section id="bid-section" class="mt-4 flex flex-col">
       <input
-        type="number"
+        type="text"
         id="bid-amount"
-        placeholder="Enter your bid"
-        class="bg-customDYellow rounded-lg p-2 w-full md:w-1/2"
+        placeholder="Place your bid"
+        class="bg-customDYellow rounded-lg font-baloo text-black p-3 mb-4 w-md md:w-1/2"
       />
       <button
         id="place-bid"
-        class="btn-secondary"
+        class="btn-secondary mb-4 md:max-w-80"
       >
-        Bid
+        Bid!
       </button>
-      <p id="bid-feedback" class="mt-2 text-red-500 hidden"></p>
+      <p id="bid-feedback" class="mt-2 font-baloo text-red-500 hidden"></p>
     </section>
   </main>
   

@@ -5,64 +5,52 @@ function generateSingleListing(listing) {
   console.log('Listing Object:', listing);
 
   const listingWrapper = document.createElement('div');
-  listingWrapper.classList.add('single-listing-wrapper');
-
-  const listingContainer = document.createElement('div');
-  listingContainer.classList.add('listing-container');
+  listingWrapper.classList.add('single-listing-wrapper', 'flex', 'flex-col', 'md:flex-row', 'gap-8', 'items-start');
 
   const mediaWrapper = document.createElement('div');
-  mediaWrapper.classList.add('py-4', 'lg:w-3/5');
+  mediaWrapper.classList.add('md:w-1/2'); 
 
   const media = document.createElement('img');
-  media.classList.add('rounded-md', 'w-full', 'object-cover');
+  media.classList.add(
+    'rounded-md',       
+    'w-full',          
+    'object-cover',     
+    'md:h-80',          
+    'md:max-h-96',      
+    'md:aspect-[4/3]'   
+  );
+  media.src = listing.media && listing.media.length > 0 ? listing.media[0].url : 'https://images.unsplash.com/photo-1557683316-973673baf926?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGNvbG9yfGVufDB8fDB8fHww';
+  media.alt = listing.media && listing.media.length > 0 ? listing.media[0].alt : 'Default media';
+  mediaWrapper.appendChild(media);
 
-  if (listing.media && Array.isArray(listing.media) && listing.media.length > 0) {
-    media.src = listing.media[0].url;
-    media.alt = listing.media[0].alt || 'Listing media';
-  } else {
-    media.src =
-      'https://images.unsplash.com/photo-1557683316-973673baf926?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGNvbG9yfGVufDB8fDB8fHww';
-    media.alt = 'Default media';
-  }
+  
+  const infoWrapper = document.createElement('div');
+  infoWrapper.classList.add('md:w-1/2'); 
 
   const title = document.createElement('h1');
   title.textContent = listing.title || 'No title available';
 
-  const endsAt = document.createElement('h1');
-  if (listing.endsAt) {
-    const endDate = new Date(listing.endsAt);
-    const now = new Date();
-    const timeDiff = endDate - now;
-    const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-
-    if (daysRemaining > 1) {
-      endsAt.textContent = `${daysRemaining} days left`;
-    } else if (daysRemaining === 1) {
-      endsAt.textContent = '1 day left';
-    } else {
-      endsAt.textContent = 'Ended';
-    }
-  } else {
-    endsAt.textContent = 'No end date available';
-  }
-
-  const description = document.createElement('p');
-  description.textContent = listing.description || 'No description available';
-  description.classList.add('lg:max-w-md');
-
-  // Add additional details (highest bid, number of bids, publish date, last updated)
-  const additionalDetails = document.createElement('div');
-  additionalDetails.classList.add('mt-4', 'text-gray-600');
-
   const highestBidElement = document.createElement('h1');
-  const highestBid = listing.bids && listing.bids.length > 0
-    ? Math.max(...listing.bids.map(bid => bid.amount))
-    : 0;
-  highestBidElement.textContent = `Highest Bid: ${highestBid > 0 ? `$${highestBid}` : 'No bids yet'}`;
+  const highestBid = listing.bids && listing.bids.length > 0 ? Math.max(...listing.bids.map(bid => bid.amount)) : 0;
+  highestBidElement.textContent = `Highest bid: ${highestBid > 0 ? `$${highestBid}` : 'No bids yet'}`;
 
   const totalBidsElement = document.createElement('h1');
   const totalBids = listing.bids ? listing.bids.length : 0;
-  totalBidsElement.textContent = `Total Bids: ${totalBids}`;
+  totalBidsElement.textContent = `Total bids: ${totalBids}`;
+
+  const endsAt = document.createElement('h1');
+  const endDate = new Date(listing.endsAt);
+  const now = new Date();
+  const timeDiff = endDate - now;
+  const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+  endsAt.textContent = daysRemaining > 1 ? `${daysRemaining} days left` : daysRemaining === 1 ? '1 day left' : 'Ended';
+
+  const description = document.createElement('p');
+  description.textContent = listing.description || 'No description available';
+  description.classList.add('py-4');
+
+  const additionalDetails = document.createElement('p');
+  additionalDetails.classList.add
 
   const publishDateElement = document.createElement('p');
   const publishDate = new Date(listing.created).toLocaleDateString();
@@ -72,14 +60,16 @@ function generateSingleListing(listing) {
   const lastUpdated = new Date(listing.updated).toLocaleDateString();
   lastUpdatedElement.textContent = `Last Updated: ${lastUpdated}`;
 
-  additionalDetails.append( publishDateElement, lastUpdatedElement);
+  additionalDetails.append(publishDateElement, lastUpdatedElement);
 
-  mediaWrapper.appendChild(media);
-  listingContainer.append(mediaWrapper, title, highestBidElement, totalBidsElement, endsAt, description, additionalDetails);
-  listingWrapper.appendChild(listingContainer);
+  infoWrapper.append(title, highestBidElement, totalBidsElement, endsAt, description, additionalDetails);
+
+  listingWrapper.append(mediaWrapper, infoWrapper);
 
   return listingWrapper;
 }
+
+
 
 function displayOneListing(listing) {
   const displayListingContainer = document.getElementById('display-one-listing');
@@ -97,7 +87,7 @@ function displayOneListing(listing) {
 
 async function fetchListing(id) {
   try {
-    const url = `${API_AUCTION_LISTINGS}/${id}?_bids=true`; // Add _bids flag to fetch bid data
+    const url = `${API_AUCTION_LISTINGS}/${id}?_bids=true`;
     console.log('Fetching URL:', url);
 
     const response = await fetch(url, {
