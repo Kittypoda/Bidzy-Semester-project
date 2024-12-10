@@ -10,7 +10,7 @@ function generateListing(listing) {
     "shadow-md",
     "transition-colors",
     "duration-300",
-    "hover:shadow-lg",
+    "hover:shadow-lg"
   );
 
   const listingPageLink = document.createElement("a");
@@ -83,34 +83,35 @@ function generateListing(listing) {
     "lg:hidden"
   );
 
-  const endsAtSm = document.createElement("p");
-  const endDate = new Date(listing.endsAt);
-  const now = new Date();
-  const timeDiff = endDate - now;
-  const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+  const endsAt = document.createElement("div");
+const endDate = new Date(listing.endsAt);
+const now = new Date();
+const timeDiff = endDate - now;
+const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
 
-  if (daysRemaining > 1) {
-    endsAtSm.textContent = `${daysRemaining} days left`;
-  } else if (daysRemaining === 1) {
-    endsAtSm.textContent = "1 day left";
-  } else {
-    endsAtSm.textContent = "Ended";
-  }
+endsAt.textContent =
+  daysRemaining > 1
+    ? `${daysRemaining} days left`
+    : daysRemaining === 1
+    ? "1 day left"
+    : "Ended";
 
-  endsAtSm.classList.add(
-    "absolute",
-    "top-2",
-    "right-2",
-    "bg-customBlue",
-    "text-white",
-    "text-xs",
-    "font-baloo",
-    "py-1",
-    "px-2",
-    "rounded",
-    "block",
-    "lg:hidden"
-  );
+endsAt.classList.add(
+  "absolute",
+  "top-2",
+  "right-2",
+  "bg-customBlue",
+  "text-white",
+  "text-xs",
+  "font-baloo",
+  "py-1",
+  "px-2",
+  "rounded",
+  "lg:group-hover:hidden", 
+  "transition-opacity", 
+  "duration-300" 
+);
+
 
   const titleLg = document.createElement("h1");
   titleLg.textContent = listing.title;
@@ -119,10 +120,6 @@ function generateListing(listing) {
   const highestBidLg = document.createElement("h1");
   highestBidLg.textContent = highestBid > 0 ? `Highest Bid: $${highestBid}` : "No bids yet";
   highestBidLg.classList.add("hidden", "lg:block", "lg:group-hover:text-black");
-
-  const endsAtLg = document.createElement("h1");
-  endsAtLg.textContent = endsAtSm.textContent;
-  endsAtLg.classList.add("text-black", "hidden", "lg:block", "lg:group-hover:text-black");
 
   const contentContainerLg = document.createElement("div");
   contentContainerLg.classList.add(
@@ -138,13 +135,12 @@ function generateListing(listing) {
   );
   contentContainerLg.appendChild(titleLg);
   contentContainerLg.appendChild(highestBidLg);
-  contentContainerLg.appendChild(endsAtLg);
 
   listingContainer.appendChild(overlay);
   listingContainer.appendChild(titleSm);
-  listingContainer.appendChild(highestBidSm); 
-  listingContainer.appendChild(endsAtSm); 
-  listingContainer.appendChild(contentContainerLg); 
+  listingContainer.appendChild(highestBidSm);
+  listingContainer.appendChild(endsAt); 
+  listingContainer.appendChild(contentContainerLg);
 
   listingPageLink.appendChild(listingContainer);
 
@@ -152,6 +148,7 @@ function generateListing(listing) {
 
   return listingWrapper;
 }
+
 
 function displayListings(listings) {
   const displayListingContainer = document.getElementById("display-listings");
