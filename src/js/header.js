@@ -18,7 +18,7 @@ function createHeader() {
       <input
         type="text"
         id="search-input"
-        class=" bg-customDYellow w-full px-4 py-2 text-black shadow-md font-baloo text-xs  rounded-md focus:outline-none focus:ring-2 focus:ring-customBlue focus:bg-white"
+        class=" bg-customDYellow w-full px-4 py-2 placeholder-black shadow-md font-baloo text-xs  rounded-md focus:outline-none focus:ring-2 focus:ring-customBlue focus:bg-white"
         placeholder="Search"
       />
       <button
