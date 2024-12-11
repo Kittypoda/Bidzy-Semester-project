@@ -133,7 +133,6 @@ editProfileForm.addEventListener('submit', async (e) => {
       }
 
       editProfilePopup.classList.add('hidden');
-      alert('Profile updated successfully!');
     } else {
       const error = await response.json();
       console.error('API Error Response:', error);
