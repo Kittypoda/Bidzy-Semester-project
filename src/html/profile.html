@@ -11,7 +11,39 @@
 <body class="bg-customLYellow md:mx-32">
   <header>
   </header>
-  <main></main>
-  
+  <main>
+    <section class="px-4">
+      <div class="flex flex-col bg-customLBlue rounded-lg p-6 justify-center items-center">
+        <div class="h-32 w-32 rounded-full bg-customDYellow" id="avatar"></div>
+        <div id="hi-user"> Hi, user!</div>
+        <div id="bio">dette er en bio</div>
+        <button id="edit-profile-btn" class="btn-secondary">Edit profile</button>
+      </div>
+      <div>Your current credit:</div>
+    </section>
+    
+    <!-- Popup for Editing Profile -->
+    <div id="edit-profile-popup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+      <div class="bg-white rounded-lg p-6 w-96">
+        <h2 class="text-lg font-bold mb-4">Edit Profile</h2>
+        <form id="edit-profile-form" class="flex flex-col gap-4">
+          <div>
+            <label for="avatar-url" class="block text-sm font-medium">Avatar URL:</label>
+            <input type="text" id="avatar-url" class="w-full border rounded p-2" placeholder="Enter avatar URL">
+          </div>
+          <div>
+            <label for="bio-text" class="block text-sm font-medium">Bio:</label>
+            <textarea id="bio-text" class="w-full border rounded p-2" rows="3" placeholder="Enter your bio"></textarea>
+          </div>
+          <div class="flex justify-end gap-2">
+            <button type="button" id="cancel-edit-btn" class="btn-secondary">Cancel</button>
+            <button type="submit" class="btn-primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+
+  </main> 
 </body>
 </html>

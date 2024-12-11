@@ -1,6 +1,6 @@
 import { API_AUCTION_LISTINGS } from "../constants";
 
-let currentListings = []; // Store all listings for sorting
+let currentListings = []; 
 
 function generateListing(listing) {
   const listingWrapper = document.createElement("div");
@@ -178,7 +178,7 @@ async function fetchListings() {
     const listings = await response.json();
     console.log("Fetched listings data:", listings);
 
-    currentListings = listings.data || listings; // Save listings for sorting
+    currentListings = listings.data || listings; 
 
     if (!Array.isArray(currentListings)) {
       throw new Error("Listings is not an array");
@@ -190,7 +190,6 @@ async function fetchListings() {
   }
 }
 
-// Sorting functionality
 function sortListings(criteria) {
   const sortedListings = [...currentListings];
   if (criteria === "newest") {
@@ -211,7 +210,6 @@ function sortListings(criteria) {
   displayListings(sortedListings);
 }
 
-// Event listeners for sorting buttons
 document.getElementById("filter-container").addEventListener("click", (e) => {
   if (e.target && e.target.textContent) {
     const criteria = e.target.textContent.toLowerCase().replace(" ", "");
