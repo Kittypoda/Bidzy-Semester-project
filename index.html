@@ -16,7 +16,7 @@
       <div><img class="max-h-96" src="./src/img /illu2.png" alt="woman selling a painting"></div>
       <div class="mx-4"><h1 class="pb-4 md:pt-32 md:text-xl lg:text-2xl">Out with the old,<br>
         in with the cash!</h1>
-      <button class="btn-secondary">Add a new listing</button>
+      <button id="create-listing-btn" class="btn-secondary">Add a new listing</button>
     </div>
     </section>
     <section class="px-4">
@@ -27,11 +27,34 @@
         <div data-sort="highestBid" class="bg-customLBlue font-baloo text-xs rounded-md px-4 py-1 lg:text-sm hover:bg-white cursor-pointer">Highest bid</div>
       </div>
     </section>
-    
-    
     <section class="all-listing-element">
       <div class="flex flex-col flex-wrap" id="display-listings"></div>
     </section>
+     <!-- Popup for Creating a New Listing -->
+<div id="create-listing-popup" class="hidden fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center">
+  <div class="bg-customLBlue rounded-lg p-6 w-96">
+    <h2 class="text-lg font-bold font-baloo text-center mb-2">Create New Listing</h2>
+    <form id="create-listing-form" class="flex flex-col gap-4">
+      <div>
+        <input type="text" id="listing-title" class="bg-customDYellow px-4 py-2 rounded-lg font-baloo shadow-sm placeholder-black w-full focus:ring focus:ring-customBlue focus:bg-white" placeholder="Enter listing title" required>
+      </div>
+      <div>
+        <textarea id="listing-description" class="bg-customDYellow px-4 py-2 rounded-lg font-baloo shadow-sm placeholder-black w-full focus:ring focus:ring-customBlue focus:bg-white" rows="3" placeholder="Enter listing description" required></textarea>
+      </div>
+      <div>
+        <input type="url" id="listing-media" class="bg-customDYellow px-4 py-2 rounded-lg font-baloo shadow-sm placeholder-black w-full focus:ring focus:ring-customBlue focus:bg-white" placeholder="Enter media URL" required>
+      </div>
+      <div>
+        <input type="datetime-local" id="listing-end-time" class="bg-customDYellow px-4 py-2 rounded-lg font-baloo shadow-sm placeholder-black w-full focus:ring focus:ring-customBlue focus:bg-white" required>
+      </div>
+      <div class="flex justify-center gap-2">
+        <button type="submit" class="btn-secondary">Publish Listing</button>
+        <button type="button" id="cancel-create-listing-btn" class="btn-primary">Cancel</button> 
+      </div>
+    </form>
+  </div>
+</div>
+    
   </main>
 </body>
 </html>
