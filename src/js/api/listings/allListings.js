@@ -1,5 +1,7 @@
 import { API_AUCTION_LISTINGS } from "../constants";
 
+let currentListings = []; // Store all listings for sorting
+
 function generateListing(listing) {
   const listingWrapper = document.createElement("div");
   listingWrapper.classList.add(
@@ -84,34 +86,33 @@ function generateListing(listing) {
   );
 
   const endsAt = document.createElement("div");
-const endDate = new Date(listing.endsAt);
-const now = new Date();
-const timeDiff = endDate - now;
-const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+  const endDate = new Date(listing.endsAt);
+  const now = new Date();
+  const timeDiff = endDate - now;
+  const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
 
-endsAt.textContent =
-  daysRemaining > 1
-    ? `${daysRemaining} days left`
-    : daysRemaining === 1
-    ? "1 day left"
-    : "Ended";
+  endsAt.textContent =
+    daysRemaining > 1
+      ? `${daysRemaining} days left`
+      : daysRemaining === 1
+      ? "1 day left"
+      : "Ended";
 
-endsAt.classList.add(
-  "absolute",
-  "top-2",
-  "right-2",
-  "bg-customBlue",
-  "text-white",
-  "text-xs",
-  "font-baloo",
-  "py-1",
-  "px-2",
-  "rounded",
-  "lg:group-hover:hidden", 
-  "transition-opacity", 
-  "duration-300" 
-);
-
+  endsAt.classList.add(
+    "absolute",
+    "top-2",
+    "right-2",
+    "bg-customBlue",
+    "text-white",
+    "text-xs",
+    "font-baloo",
+    "py-1",
+    "px-2",
+    "rounded",
+    "lg:group-hover:hidden",
+    "transition-opacity",
+    "duration-300"
+  );
 
   const titleLg = document.createElement("h1");
   titleLg.textContent = listing.title;
@@ -139,7 +140,7 @@ endsAt.classList.add(
   listingContainer.appendChild(overlay);
   listingContainer.appendChild(titleSm);
   listingContainer.appendChild(highestBidSm);
-  listingContainer.appendChild(endsAt); 
+  listingContainer.appendChild(endsAt);
   listingContainer.appendChild(contentContainerLg);
 
   listingPageLink.appendChild(listingContainer);
@@ -148,7 +149,6 @@ endsAt.classList.add(
 
   return listingWrapper;
 }
-
 
 function displayListings(listings) {
   const displayListingContainer = document.getElementById("display-listings");
@@ -178,15 +178,45 @@ async function fetchListings() {
     const listings = await response.json();
     console.log("Fetched listings data:", listings);
 
-    const listingsArray = listings.data || listings;
-    if (!Array.isArray(listingsArray)) {
+    currentListings = listings.data || listings; // Save listings for sorting
+
+    if (!Array.isArray(currentListings)) {
       throw new Error("Listings is not an array");
     }
 
-    displayListings(listingsArray);
+    displayListings(currentListings);
   } catch (error) {
     console.error("Error fetching listings:", error);
   }
 }
+
+// Sorting functionality
+function sortListings(criteria) {
+  const sortedListings = [...currentListings];
+  if (criteria === "newest") {
+    sortedListings.sort((a, b) => new Date(b.created) - new Date(a.created));
+  } else if (criteria === "lowest") {
+    sortedListings.sort(
+      (a, b) =>
+        (a.bids && Math.min(...a.bids.map((bid) => bid.amount))) -
+        (b.bids && Math.min(...b.bids.map((bid) => bid.amount)))
+    );
+  } else if (criteria === "highest") {
+    sortedListings.sort(
+      (a, b) =>
+        (b.bids && Math.max(...b.bids.map((bid) => bid.amount))) -
+        (a.bids && Math.max(...a.bids.map((bid) => bid.amount)))
+    );
+  }
+  displayListings(sortedListings);
+}
+
+// Event listeners for sorting buttons
+document.getElementById("filter-container").addEventListener("click", (e) => {
+  if (e.target && e.target.textContent) {
+    const criteria = e.target.textContent.toLowerCase().replace(" ", "");
+    sortListings(criteria);
+  }
+});
 
 fetchListings();

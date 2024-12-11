@@ -1,6 +1,6 @@
 function createHeader() {
   const headerHTML = `
-    <header class="p-4">
+    <header class="p-4 pb-16">
       <div class="flex justify-end">
         <a href="/src/html/profile.html">
           <button class="btn-primary">
@@ -18,7 +18,7 @@ function createHeader() {
       <input
         type="text"
         id="search-input"
-        class=" bg-customDYellow w-full px-4 py-2 placeholder-black shadow-md font-baloo text-xs  rounded-md focus:outline-none focus:ring-2 focus:ring-customBlue focus:bg-white"
+        class=" bg-customDYellow w-full px-4 py-2 placeholder-black shadow-md font-baloo text-sx lg:text-sm  rounded-md focus:outline-none focus:ring-2 focus:ring-customBlue focus:bg-white"
         placeholder="Search"
       />
       <button

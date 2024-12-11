@@ -24,7 +24,8 @@ export default async function router(pathname = window.location.pathname) {
       break;
       case '/src/html/search.html':
         await import('../js/header.js');
-        await import('./api/listings/searchListing.js')
+        await import('./api/listings/searchListing.js');
+        await import('../js/api/ui/searchForm.js');
         break;
   }
 }

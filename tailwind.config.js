@@ -10,6 +10,7 @@ module.exports = {
         customLYellow: '#FFF7E7',
         customDYellow: '#FFECC7',
         customBlue: '#6D8CDC',
+        customLBlue: '#D2DFFF',
       },
       fontFamily: {
         bagel: ['"Bagel Fat One"', 'serif'],

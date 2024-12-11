@@ -12,6 +12,16 @@
   <header>
   </header>
   <main>
+    <section class="px-4">
+      <div class="font-baloo py-4 text-xs lg:text-sm">Sort by:</div>
+      <div id="filter-container" class="flex gap-4">
+        <div data-sort="newest" class="bg-customLBlue font-baloo text-xs rounded-md px-4 py-1 lg:text-sm hover:bg-white cursor-pointer">Newest</div>
+        <div data-sort="lowestBid" class="bg-customLBlue font-baloo text-xs rounded-md px-4 py-1 lg:text-sm hover:bg-white cursor-pointer">Lowest bid</div>
+        <div data-sort="highestBid" class="bg-customLBlue font-baloo text-xs rounded-md px-4 py-1 lg:text-sm hover:bg-white cursor-pointer">Highest bid</div>
+      </div>
+    </section>
+    
+    
     <section class="all-listing-element">
       <div class="flex flex-col flex-wrap" id="display-listings"></div>
     </section>
