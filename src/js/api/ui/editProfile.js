@@ -6,37 +6,87 @@ const editProfilePopup = document.getElementById('edit-profile-popup');
 const cancelEditBtn = document.getElementById('cancel-edit-btn');
 const editProfileForm = document.getElementById('edit-profile-form');
 
-// Function to get the logged-in user's name
 function getLoggedInUserName() {
-  const userName = JSON.parse(localStorage.getItem('userName')); // Ensure the username is parsed if stored as JSON
+  const userName = JSON.parse(localStorage.getItem('userName')); 
   if (!userName) {
     alert('Unable to identify the logged-in user. Redirecting to login...');
-    window.location.href = '/src/html/login.html'; // Redirect to login if username is missing
+    window.location.href = '/src/html/login.html'; 
     return null;
   }
   return userName;
 }
 
-// Show popup
+async function fetchUserProfile() {
+  const userName = getLoggedInUserName();
+  if (!userName) return;
+
+  try {
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken) {
+      alert('User is not logged in. Redirecting to login...');
+      window.location.href = '/src/html/login.html';
+      return;
+    }
+
+    const response = await fetch(`${API_AUCTION_PROFILE}/${userName}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+        'X-Noroff-API-Key': API_KEY,
+      },
+    });
+
+    if (response.ok) {
+      const profile = await response.json();
+      console.log('Fetched user profile:', profile);
+
+      // Update avatar
+      if (profile.data.avatar && profile.data.avatar.url) {
+        document.getElementById('avatar').style.backgroundImage = `url(${profile.data.avatar.url})`;
+      }
+
+      // Update bio
+      if (profile.data.bio) {
+        document.getElementById('bio').textContent = profile.data.bio;
+      }
+
+      // Update username greeting
+      const hiUserElement = document.getElementById('hi-user');
+      hiUserElement.textContent = `Hi, ${userName}!`;
+
+      // Update credit
+      if (profile.data.credits !== undefined) {
+        const creditElement = document.getElementById('credit');
+        creditElement.textContent = `Your current credit: $${profile.data.credits}`;
+      }
+    } else {
+      const error = await response.json();
+      console.error('Error fetching profile:', error);
+      alert(`Failed to fetch profile: ${error.errors?.[0]?.message || 'Unknown error'}`);
+    }
+  } catch (error) {
+    console.error('Error fetching profile:', error);
+    alert('An unexpected error occurred while fetching the profile.');
+  }
+}
+
 editProfileBtn.addEventListener('click', () => {
-  const userName = getLoggedInUserName(); // Ensure username is checked before proceeding
+  const userName = getLoggedInUserName(); 
   if (userName) {
     editProfilePopup.classList.remove('hidden');
   }
 });
 
-// Hide popup
 cancelEditBtn.addEventListener('click', () => {
   editProfilePopup.classList.add('hidden');
 });
 
-// Handle form submission
 editProfileForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   const avatarUrl = document.getElementById('avatar-url').value.trim();
   const bioText = document.getElementById('bio-text').value.trim();
 
-  // Validate input
   if (!avatarUrl && !bioText) {
     alert('Please provide at least one field to update.');
     return;
@@ -45,7 +95,6 @@ editProfileForm.addEventListener('submit', async (e) => {
   const userName = getLoggedInUserName();
   if (!userName) return;
 
-  // Prepare the payload
   const payload = {};
   if (avatarUrl) {
     payload.avatar = { url: avatarUrl, alt: "User avatar" };
@@ -54,7 +103,6 @@ editProfileForm.addEventListener('submit', async (e) => {
     payload.bio = bioText;
   }
 
-  // Update user profile via API
   try {
     const accessToken = localStorage.getItem('accessToken');
     if (!accessToken) {
@@ -70,7 +118,6 @@ editProfileForm.addEventListener('submit', async (e) => {
         Authorization: `Bearer ${accessToken}`,
         'X-Noroff-API-Key': API_KEY,
       },
-        
       body: JSON.stringify(payload),
     });
 
@@ -78,21 +125,15 @@ editProfileForm.addEventListener('submit', async (e) => {
       const updatedProfile = await response.json();
       console.log('Profile updated:', updatedProfile);
 
-      if (updatedProfile.data) {
-        // Update the profile UI
-        if (updatedProfile.data.avatar && updatedProfile.data.avatar.url) {
-          document.getElementById('avatar').style.backgroundImage = `url(${updatedProfile.data.avatar.url})`;
-        }
-        if (updatedProfile.data.bio) {
-          document.getElementById('bio').textContent = updatedProfile.data.bio;
-        }
-
-        // Hide the popup
-        editProfilePopup.classList.add('hidden');
-        alert('Profile updated successfully!');
-      } else {
-        alert('Failed to retrieve updated profile details.');
+      if (updatedProfile.data.avatar && updatedProfile.data.avatar.url) {
+        document.getElementById('avatar').style.backgroundImage = `url(${updatedProfile.data.avatar.url})`;
       }
+      if (updatedProfile.data.bio) {
+        document.getElementById('bio').textContent = updatedProfile.data.bio;
+      }
+
+      editProfilePopup.classList.add('hidden');
+      alert('Profile updated successfully!');
     } else {
       const error = await response.json();
       console.error('API Error Response:', error);
@@ -103,3 +144,7 @@ editProfileForm.addEventListener('submit', async (e) => {
     alert('An unexpected error occurred.');
   }
 });
+
+// Fetch user profile on page load
+fetchUserProfile();
+
