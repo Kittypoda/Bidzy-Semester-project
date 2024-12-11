@@ -29,7 +29,7 @@ async function onLogin(event) {
   } catch (error) {
     alert('login failed')
     console.error('Login failed', error)
-  } finally { window.location.href = '/';}
+  } finally { window.location.href = '/src/html/profile.html';}
 }
 
   const form = document.querySelector('#login-form');
