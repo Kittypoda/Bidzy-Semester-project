@@ -34,3 +34,7 @@ p {
 .btn-secondary{
   @apply bg-customBlue text-white font-baloo font-bold px-4 py-3 rounded-md text-xs md:text-sm
 }
+
+.btn-yellow{
+  @apply bg-customDYellow text-black shadow-md font-baloo font-bold px-4 py-3 rounded-md text-xs md:text-sm hover:bg-customLBlue
+}

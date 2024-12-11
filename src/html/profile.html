@@ -12,14 +12,27 @@
   <header>
   </header>
   <main>
-    <section class="px-4">
+    <section class="px-4 flex flex-col lg:flex-row lg:gap-16">
+      <div>
       <div class="flex flex-col bg-customLBlue min-h-96 rounded-lg p-6 justify-center items-center">
         <div class="h-32 w-32 rounded-full bg-customDYellow mb-4 bg-cover bg-center bg-no-repeat" id="avatar"></div>
         <div class="font-baloo font-bold text-sm md:text-xl" id="hi-user"> Hi, user!</div>
         <div class="font-baloo text-center pb-12" id="bio">dette er en bio</div>
         <button id="edit-profile-btn" class="btn-secondary">Edit profile</button>
       </div>
-      <div class="font-baloo font-bold text-sm" id="credit">Your current credit:</div>
+      <div class="font-baloo font-bold text-sm pt-4 mb-4" id="credit">Your current credit:</div>
+     </div>
+
+      <div class="flex flex-col">
+        <div class="font-baloo font-bold max-w-[520px] text-xl lg:text-2xl mb-4 lg:mt-6">What do you want 
+        to do today?</div>
+        <div class="flex flex-col gap-4 pb-24 lg:pb-4">
+          <button class="btn-yellow">Create new listing</button>
+          <button class="btn-yellow">See my listings</button>
+          <button class="btn-yellow">See my bids</button>
+        </div>
+      </div>
+
     </section>
     
     <!-- Popup for Editing Profile -->
