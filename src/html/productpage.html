@@ -13,20 +13,25 @@
   <main class="mx-4">
     <section id="display-one-listing">
     </section>
-    <section id="bid-section" class="mt-4 flex flex-col">
+    <section id="bid-section" class="bg-customLBlue rounded-md mt-4 max-w-96 h-40 mb-40">
+      <div class="p-6">
+      <h1>Love it? Bid it</h1>
+     <div class="mt-2 flex gap-2">
       <input
         type="text"
         id="bid-amount"
-        placeholder="Place your bid"
-        class="bg-customDYellow rounded-lg font-baloo text-black p-3 mb-4 w-md md:w-1/2"
+        placeholder="Your bid"
+        class="bg-customDYellow rounded-md shadow-md font-baloo text-center placeholder-black p-3 mb-4 w-32"
       />
       <button
         id="place-bid"
-        class="btn-secondary mb-4 md:max-w-80"
+        class="btn-secondary mb-4 w-24"
       >
         Bid!
       </button>
       <p id="bid-feedback" class="mt-2 font-baloo text-red-500 hidden"></p>
+    </div>
+    </div>
     </section>
   </main>
   

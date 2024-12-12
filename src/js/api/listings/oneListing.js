@@ -8,16 +8,15 @@ function generateSingleListing(listing) {
   listingWrapper.classList.add('single-listing-wrapper', 'flex', 'mt-8', 'flex-col', 'md:flex-row', 'gap-8', 'items-start');
 
   const mediaWrapper = document.createElement('div');
-  mediaWrapper.classList.add('md:w-1/2'); 
+ 
 
   const media = document.createElement('img');
   media.classList.add(
-    'rounded-md',       
-    'w-full',          
+    'rounded-md', 
+    'min-w-80',               
     'object-cover',     
-    'md:h-80',          
-    'md:max-h-96',      
-    'md:aspect-[4/3]'   
+    'h-80',          
+     
   );
   media.src = listing.media && listing.media.length > 0 ? listing.media[0].url : 'https://images.unsplash.com/photo-1557683316-973673baf926?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGNvbG9yfGVufDB8fDB8fHww';
   media.alt = listing.media && listing.media.length > 0 ? listing.media[0].alt : 'Default media';
@@ -47,7 +46,7 @@ function generateSingleListing(listing) {
 
   const description = document.createElement('p');
   description.textContent = listing.description || 'No description available';
-  description.classList.add('py-4');
+  description.classList.add('py-4', 'max-w-80');
 
   const additionalDetails = document.createElement('p');
   additionalDetails.classList.add
