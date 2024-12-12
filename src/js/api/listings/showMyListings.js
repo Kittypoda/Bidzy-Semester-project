@@ -2,7 +2,7 @@ import { API_AUCTION_PROFILE } from "../constants";
 import { API_KEY } from "../constants";
 
 async function fetchUserListings() {
-  const userName = JSON.parse(localStorage.getItem('userName')); // Get logged-in user's username
+  const userName = JSON.parse(localStorage.getItem('userName')); 
   if (!userName) {
     alert('User not logged in. Redirecting to login...');
     window.location.href = '/src/html/login.html';
@@ -43,7 +43,7 @@ async function fetchUserListings() {
 
 function displayListings(listings) {
   const listingsContainer = document.getElementById('listings-container');
-  listingsContainer.textContent = ''; // Clear the container
+  listingsContainer.textContent = '';
 
   if (listings.length === 0) {
     listingsContainer.textContent = 'No listings found.';
@@ -53,24 +53,67 @@ function displayListings(listings) {
   listings.forEach((listing) => {
     const listingCard = document.createElement('div');
     listingCard.classList.add(
-      'flex',
-      'flex-col',
-      'bg-customLBlue',
+      'relative',
+      'overflow-hidden',
       'rounded-lg',
-      'p-4',
+      'group',
       'shadow-md',
-      'mb-4'
+      'transition-colors',
+      'duration-300',
+      'hover:shadow-lg'
     );
 
-    const title = document.createElement('h2');
+    const listingPageLink = document.createElement("a");
+    listingPageLink.href = `/src/html/productpage.html?listingId=${listing.id}`;
+    listingPageLink.classList.add("block", "h-full", "w-full");
+
+    const listingContainer = document.createElement('div');
+    listingContainer.classList.add(
+      'h-64',
+      'w-full',
+      'relative',
+      'bg-cover',
+      'bg-center',
+      'transition-colors',
+      'duration-300'
+    );
+
+    if (listing.media && Array.isArray(listing.media) && listing.media.length > 0) {
+      listingContainer.style.backgroundImage = `url(${listing.media[0].url})`;
+    } else {
+      listingContainer.style.backgroundImage =
+        "url('https://images.unsplash.com/photo-1521193089946-7aa29d1fe776?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')";
+    }
+
+    const overlay = document.createElement('div');
+    overlay.classList.add(
+      'absolute',
+      'inset-0',
+      'bg-customDYellow',
+      'opacity-0',
+      'transition-opacity',
+      'duration-300'
+    );
+
+    const title = document.createElement('h1');
     title.textContent = listing.title || 'Untitled';
-    title.classList.add('text-lg', 'font-bold', 'mb-2', 'font-baloo');
+    title.classList.add(
+      "absolute",
+      "bottom-0",
+      "left-0",
+      "w-full",
+      "bg-customDYellow",
+      "text-black",
+      "text-sm",
+      "font-bold",
+      "py-2",
+      "px-4",
+      "rounded-t-lg",
+      "block",
+      "h-24"
+    );
 
-    const description = document.createElement('p');
-    description.textContent = listing.description || 'No description available.';
-    description.classList.add('text-sm', 'text-gray-600', 'mb-2', 'font-baloo');
-
-    const endsAt = document.createElement('p');
+    const endsAt = document.createElement('div');
     const endDate = new Date(listing.endsAt);
     const now = new Date();
     const timeDiff = endDate - now;
@@ -82,16 +125,49 @@ function displayListings(listings) {
         : daysRemaining === 1
         ? '1 day left'
         : 'Ended';
-    endsAt.classList.add('text-sm', 'text-gray-500', 'font-baloo', 'italic');
 
-    const bidsCount = document.createElement('p');
-    bidsCount.textContent = `Bids: ${listing._count?.bids || 0}`;
-    bidsCount.classList.add('text-sm', 'text-gray-500', 'font-baloo');
+    endsAt.classList.add(
+      'absolute',
+      'top-2',
+      'right-2',
+      'bg-customBlue',
+      'text-white',
+      'text-xs',
+      'font-baloo',
+      'py-1',
+      'px-2',
+      'rounded'
+    );
 
-    listingCard.append(title, description, endsAt, bidsCount);
+    const highestBid =
+      listing.bids && listing.bids.length > 0
+        ? Math.max(...listing.bids.map((bid) => bid.amount))
+        : 0;
+
+    const highestBidElement = document.createElement("h1");
+    highestBidElement.textContent =
+      highestBid > 0 ? `Highest Bid: $${highestBid}` : "No bids yet";
+    highestBidElement.classList.add(
+      "absolute",
+      "bottom-6",
+      "left-4",
+      "text-black",
+      "text-sm",
+      "block",
+    );
+
+    listingPageLink.appendChild(listingContainer);
+    listingPageLink.appendChild(overlay);
+    listingPageLink.appendChild(title);
+    listingPageLink.appendChild(highestBidElement);
+    listingPageLink.appendChild(endsAt);
+
+    listingCard.appendChild(listingPageLink);
+
     listingsContainer.appendChild(listingCard);
   });
 }
 
-// Fetch listings on page load
+
 fetchUserListings();
+
