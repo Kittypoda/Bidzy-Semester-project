@@ -1,4 +1,9 @@
+import { showLoader, hideLoader } from './view/loader';
+
 export default async function router(pathname = window.location.pathname) {
+  showLoader();
+
+  try {
   switch (pathname) {
     case '/index.html':
     case '/':
@@ -30,10 +35,16 @@ export default async function router(pathname = window.location.pathname) {
           await import('./api/listings/searchListing.js');
           await import('../js/api/ui/searchForm.js'); 
           await import('../js/api/ui/editProfile.js');  
-          await import('./api/ui/createListing.js')     
+          await import('./api/ui/createListing.js');     
           break;
       case '/src/html/mylistings.html':
         await import('./view/header');
         await import('../js/api/listings/showMyListings.js');
+
         }
+      } catch (error) {
+        console.error(`Error loading route: ${pathname}`, error);
+      } finally {
+        hideLoader(); // Hide loader after content has loaded
       }
+    }

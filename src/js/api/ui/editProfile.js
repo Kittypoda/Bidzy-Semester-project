@@ -41,21 +41,17 @@ async function fetchUserProfile() {
       const profile = await response.json();
       console.log('Fetched user profile:', profile);
 
-      // Update avatar
       if (profile.data.avatar && profile.data.avatar.url) {
         document.getElementById('avatar').style.backgroundImage = `url(${profile.data.avatar.url})`;
       }
 
-      // Update bio
       if (profile.data.bio) {
         document.getElementById('bio').textContent = profile.data.bio;
       }
 
-      // Update username greeting
       const hiUserElement = document.getElementById('hi-user');
       hiUserElement.textContent = `Hi, ${userName}!`;
 
-      // Update credit
       if (profile.data.credits !== undefined) {
         const creditElement = document.getElementById('credit');
         creditElement.textContent = `Your current credit: $${profile.data.credits}`;
@@ -144,6 +140,5 @@ editProfileForm.addEventListener('submit', async (e) => {
   }
 });
 
-// Fetch user profile on page load
 fetchUserProfile();
 
