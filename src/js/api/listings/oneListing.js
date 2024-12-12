@@ -1,89 +1,6 @@
 import { API_AUCTION_LISTINGS } from '../constants';
 import { API_KEY } from '../constants';
 
-function generateSingleListing(listing) {
-  console.log('Listing Object:', listing);
-
-  const listingWrapper = document.createElement('div');
-  listingWrapper.classList.add('single-listing-wrapper', 'flex', 'mt-8', 'flex-col', 'md:flex-row', 'gap-8', 'items-start');
-
-  const mediaWrapper = document.createElement('div');
- 
-
-  const media = document.createElement('img');
-  media.classList.add(
-    'rounded-md', 
-    'min-w-80',               
-    'object-cover',     
-    'h-80',          
-     
-  );
-  media.src = listing.media && listing.media.length > 0 ? listing.media[0].url : 'https://images.unsplash.com/photo-1557683316-973673baf926?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGNvbG9yfGVufDB8fDB8fHww';
-  media.alt = listing.media && listing.media.length > 0 ? listing.media[0].alt : 'Default media';
-  mediaWrapper.appendChild(media);
-
-  
-  const infoWrapper = document.createElement('div');
-  infoWrapper.classList.add('md:w-1/2'); 
-
-  const title = document.createElement('h1');
-  title.textContent = listing.title || 'No title available';
-
-  const highestBidElement = document.createElement('h1');
-  const highestBid = listing.bids && listing.bids.length > 0 ? Math.max(...listing.bids.map(bid => bid.amount)) : 0;
-  highestBidElement.textContent = `Highest bid: ${highestBid > 0 ? `$${highestBid}` : 'No bids yet'}`;
-
-  const totalBidsElement = document.createElement('h1');
-  const totalBids = listing.bids ? listing.bids.length : 0;
-  totalBidsElement.textContent = `Total bids: ${totalBids}`;
-
-  const endsAt = document.createElement('h1');
-  const endDate = new Date(listing.endsAt);
-  const now = new Date();
-  const timeDiff = endDate - now;
-  const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-  endsAt.textContent = daysRemaining > 1 ? `${daysRemaining} days left` : daysRemaining === 1 ? '1 day left' : 'Ended';
-
-  const description = document.createElement('p');
-  description.textContent = listing.description || 'No description available';
-  description.classList.add('py-4', 'max-w-80');
-
-  const additionalDetails = document.createElement('p');
-  additionalDetails.classList.add
-
-  const publishDateElement = document.createElement('p');
-  const publishDate = new Date(listing.created).toLocaleDateString();
-  publishDateElement.textContent = `Published: ${publishDate}`;
-
-  const lastUpdatedElement = document.createElement('p');
-  const lastUpdated = new Date(listing.updated).toLocaleDateString();
-  lastUpdatedElement.textContent = `Last Updated: ${lastUpdated}`;
-
-  additionalDetails.append(publishDateElement, lastUpdatedElement);
-
-  infoWrapper.append(title, highestBidElement, totalBidsElement, endsAt, description, additionalDetails);
-
-  listingWrapper.append(mediaWrapper, infoWrapper);
-
-  return listingWrapper;
-}
-
-
-
-function displayOneListing(listing) {
-  const displayListingContainer = document.getElementById('display-one-listing');
-
-  if (!displayListingContainer) {
-    console.error('Display container not found.');
-    return;
-  }
-
-  displayListingContainer.textContent = '';
-  console.log('Displaying Listing:', listing);
-  const listingHtml = generateSingleListing(listing);
-  displayListingContainer.appendChild(listingHtml);
-}
-
 async function fetchListing(id) {
   try {
     const url = `${API_AUCTION_LISTINGS}/${id}?_bids=true`;
@@ -110,6 +27,58 @@ async function fetchListing(id) {
   }
 }
 
+function displayOneListing(listing) {
+  const displayListingContainer = document.getElementById('display-one-listing');
+
+  if (!displayListingContainer) {
+    console.error('Display container not found.');
+    return;
+  }
+
+  displayListingContainer.textContent = '';
+  console.log('Displaying Listing:', listing);
+
+  const listingWrapper = document.createElement('div');
+  listingWrapper.classList.add('single-listing-wrapper', 'flex', 'mt-8', 'flex-col', 'md:flex-row', 'gap-8', 'items-start');
+
+  const mediaWrapper = document.createElement('div');
+  const media = document.createElement('img');
+  media.classList.add('rounded-md', 'min-w-80', 'object-cover', 'h-80');
+  media.src = listing.media && listing.media.length > 0 ? listing.media[0].url : 'https://images.unsplash.com/photo-1557683316-973673baf926?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGNvbG9yfGVufDB8fDB8fHww';
+  media.alt = listing.media && listing.media.length > 0 ? listing.media[0].alt : 'Default media';
+  mediaWrapper.appendChild(media);
+
+  const infoWrapper = document.createElement('div');
+  infoWrapper.classList.add('md:w-1/2');
+
+  const title = document.createElement('h1');
+  title.textContent = listing.title || 'No title available';
+
+  const highestBidElement = document.createElement('h1');
+  const highestBid = listing.bids && listing.bids.length > 0 ? Math.max(...listing.bids.map(bid => bid.amount)) : 0;
+  highestBidElement.textContent = `Highest bid: ${highestBid > 0 ? `$${highestBid}` : 'No bids yet'}`;
+
+  const totalBidsElement = document.createElement('h1');
+  const totalBids = listing.bids ? listing.bids.length : 0;
+  totalBidsElement.textContent = `Total bids: ${totalBids}`;
+
+  const endsAt = document.createElement('h1');
+  const endDate = new Date(listing.endsAt);
+  const now = new Date();
+  const timeDiff = endDate - now;
+  const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+  endsAt.textContent = daysRemaining > 1 ? `${daysRemaining} days left` : daysRemaining === 1 ? '1 day left' : 'Ended';
+
+  const description = document.createElement('p');
+  description.textContent = listing.description || 'No description available';
+  description.classList.add('py-4', 'max-w-80');
+
+  infoWrapper.append(title, highestBidElement, totalBidsElement, endsAt, description);
+  listingWrapper.append(mediaWrapper, infoWrapper);
+
+  displayListingContainer.appendChild(listingWrapper);
+}
+
 async function renderPage() {
   const parameterString = window.location.search;
   const searchParameter = new URLSearchParams(parameterString);
@@ -126,12 +95,11 @@ async function renderPage() {
 
   if (listing) {
     displayOneListing(listing);
+    renderBidSection(); // Call renderBidSection after displaying the listing
   } else {
     console.error('No data found for the specified listing ID.');
   }
 }
-
-renderPage();
 
 async function placeBid(listingId) {
   const bidAmount = document.getElementById('bid-amount').value;
@@ -147,32 +115,9 @@ async function placeBid(listingId) {
   }
 
   const token = localStorage.getItem('accessToken');
-  console.log('Retrieved Token:', token);
 
-  if (!token) {
-    feedback.textContent = 'You must be logged in to place a bid.';
-    feedback.classList.remove('hidden');
-    return;
-  }
-
-  const listing = await fetchListing(listingId);
-  let highestBid = 0;
-
-  if (listing && listing.bids && listing.bids.length > 0) {
-    highestBid = Math.max(...listing.bids.map(bid => bid.amount));
-    console.log('Highest Bid:', highestBid);
-
-    if (parseFloat(bidAmount) <= highestBid) {
-      feedback.textContent = `Your bid must be greater than the current highest bid of ${highestBid}.`;
-      feedback.classList.remove('hidden');
-      return;
-    }
-  } else {
-    console.warn('No bids found or unable to fetch the current highest bid. Proceeding without validation.');
-  }
 
   const requestBody = JSON.stringify({ amount: parseFloat(bidAmount) });
-  console.log('Request Body:', requestBody);
 
   try {
     const response = await fetch(`${API_AUCTION_LISTINGS}/${listingId}/bids`, {
@@ -185,45 +130,87 @@ async function placeBid(listingId) {
       body: requestBody,
     });
 
-    console.log('Sending Request:', {
-      url: `${API_AUCTION_LISTINGS}/${listingId}/bids`,
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-        'X-Noroff-API-Key': API_KEY,
-      },
-      body: requestBody,
-    });
-
     if (response.ok) {
-      const data = await response.json();
       feedback.textContent = 'Bid placed successfully!';
       feedback.classList.remove('text-red-500');
       feedback.classList.add('text-green-500');
       feedback.classList.remove('hidden');
-      console.log('Bid Response:', data);
     } else {
       const error = await response.json();
-      console.error('Error Response:', error);
       feedback.textContent = `Error: ${error.message || 'Failed to place bid.'}`;
       feedback.classList.remove('hidden');
     }
   } catch (error) {
-    console.error('Error placing bid:', error);
     feedback.textContent = 'An error occurred while placing the bid.';
     feedback.classList.remove('hidden');
   }
 }
 
-const bidButton = document.getElementById('place-bid');
-if (bidButton) {
-  console.log('Bid button found. Attaching event listener...');
-  bidButton.addEventListener('click', () => {
-    console.log('Bid button clicked!');
-    const listingId = window.location.search.split('=')[1];
-    placeBid(listingId);
-  });
-} else {
-  console.error('Bid button not found in the DOM.');
+function renderBidSection() {
+  const bidSection = document.getElementById('bid-section');
+  bidSection.textContent = ''; 
+
+  const contentWrapper = document.createElement('div');
+  contentWrapper.classList.add('p-6');
+
+  const header = document.createElement('h1');
+  header.textContent = 'Love it? Bid it';
+  header.classList.add('font-bold', 'mb-4');
+  contentWrapper.appendChild(header);
+
+  const token = localStorage.getItem('accessToken');
+
+  if (token) {
+    const bidForm = document.createElement('div');
+    bidForm.classList.add('mt-2', 'flex', 'gap-2');
+
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.id = 'bid-amount';
+    input.placeholder = 'Your bid';
+    input.classList.add(
+      'bg-customDYellow',
+      'rounded-md',
+      'shadow-md',
+      'font-baloo',
+      'text-center',
+      'placeholder-black',
+      'p-3',
+      'mb-4',
+      'w-32'
+    );
+
+    const bidButton = document.createElement('button');
+    bidButton.id = 'place-bid';
+    bidButton.textContent = 'Bid!';
+    bidButton.classList.add('btn-secondary', 'mb-4', 'w-24');
+
+    bidButton.addEventListener('click', () => {
+      const listingId = new URLSearchParams(window.location.search).get('listingId');
+      placeBid(listingId);
+    });
+
+    bidForm.appendChild(input);
+    bidForm.appendChild(bidButton);
+
+    const feedback = document.createElement('p');
+    feedback.id = 'bid-feedback';
+    feedback.classList.add('mt-2', 'font-baloo', 'text-red-500', 'hidden');
+
+    contentWrapper.appendChild(bidForm);
+    contentWrapper.appendChild(feedback);
+  } else {
+    const loginButton = document.createElement('button');
+    loginButton.textContent = 'Log in to Bid';
+    loginButton.classList.add('btn-secondary', 'mb-4', 'w-full');
+    loginButton.addEventListener('click', () => {
+      window.location.href = '/src/html/login.html';
+    });
+
+    contentWrapper.appendChild(loginButton);
+  }
+
+  bidSection.appendChild(contentWrapper);
 }
+
+renderPage();

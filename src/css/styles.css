@@ -28,7 +28,7 @@ p {
 }
 
 .btn-primary{
-  @apply bg-black text-white font-baloo font-extrabold px-4 py-2 rounded-md text-xs md:text-sm
+  @apply bg-black text-white font-baloo font-bold px-4 py-2 rounded-md text-xs md:text-sm
 }
 
 .btn-secondary{
