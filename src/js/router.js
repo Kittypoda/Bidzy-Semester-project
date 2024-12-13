@@ -5,7 +5,7 @@ export default async function router(pathname = window.location.pathname) {
 
   try {
   switch (pathname) {
-    case '/index.html':
+    case '/Bidzy-Semester-project/':
     case '/':
       await import('./view/header');
       await import('./api/listings/allListings');
@@ -13,7 +13,7 @@ export default async function router(pathname = window.location.pathname) {
       await import('../js/api/ui/searchForm.js');
       await import('../js/api/ui/createListing.js')
       break;
-    case '/src/html/register.html':
+    case '/Bidzy-Semester-project/src/html/register.html':
       await import('./api/ui/register.js');
       break;
     case '/src/html/productpage.html':
