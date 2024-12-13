@@ -2,11 +2,12 @@ import { API_AUCTION_LISTINGS } from "../constants";
 
 async function fetchSearchResults(query) {
   try {
-    const response = await fetch(`${API_AUCTION_LISTINGS}/search?q=${encodeURIComponent(query)}`);
+    const response = await fetch(`${API_AUCTION_LISTINGS}/search?q=${encodeURIComponent(query)}&_bids=true`);
     if (!response.ok) {
       throw new Error("Failed to fetch search results");
     }
     const data = await response.json();
+    console.log("API Response with bids:", data); 
     return data.data || [];
   } catch (error) {
     console.error("Error fetching search results:", error);
@@ -61,6 +62,7 @@ function generateSearchResult(listing) {
 
   const title = document.createElement("h1");
   title.textContent = listing.title || "Untitled";
+  title.setAttribute("title", listing.title || "Untitled"); // Tooltip for full title
   title.classList.add(
     "absolute",
     "bottom-0",
@@ -70,23 +72,24 @@ function generateSearchResult(listing) {
     "text-black",
     "text-sm",
     "font-bold",
+    "pt-8",
     "py-2",
-    "px-4",
+    "px-2",
     "rounded-t-lg",
     "block",
-    "h-24"
+    "h-24",
+    "truncate"
   );
 
   const highestBid = listing.bids && listing.bids.length > 0 ? Math.max(...listing.bids.map((bid) => bid.amount)) : 0;
-  const highestBidElement = document.createElement("h1");
+  const highestBidElement = document.createElement("h2");
   highestBidElement.textContent = highestBid > 0 ? `Highest Bid: $${highestBid}` : "No bids yet";
   highestBidElement.classList.add(
     "absolute",
-    "bottom-6",
-    "left-4",
-    "text-black",
-    "text-sm",
-    "block"
+    "bottom-2",
+    "px-2",
+    "md:text-sm",
+    "block",
   );
 
   const endsAt = document.createElement("div");
