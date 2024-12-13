@@ -23,6 +23,10 @@ h1 {
   @apply font-baloo font-bold text-sm 
 }
 
+h2 {
+  @apply  font-baloo font-bold text-sm text-black
+}
+
 p {
   @apply font-baloo text-xs 
 }

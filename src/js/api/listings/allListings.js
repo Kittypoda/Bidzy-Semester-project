@@ -58,18 +58,21 @@ function generateListing(listing) {
     "left-0",
     "w-full",
     "bg-customDYellow",
-    "text-black",
-    "text-sm",
-    "font-bold",
+    "pt-8",
     "py-2",
-    "px-4",
+    "px-2",
+    "md:px-4",
+    "text-xs",
+    "md:text-sm",
     "rounded-t-lg",
     "block",
     "lg:hidden",
-    "h-24"
+    "h-24",
+    "font-bold",
+    "truncate", 
   );
 
-  const highestBidSm = document.createElement("h1");
+  const highestBidSm = document.createElement("h2");
   const highestBid =
     listing.bids && listing.bids.length > 0
       ? Math.max(...listing.bids.map((bid) => bid.amount))
@@ -77,10 +80,12 @@ function generateListing(listing) {
   highestBidSm.textContent = highestBid > 0 ? `Highest Bid: $${highestBid}` : "No bids yet";
   highestBidSm.classList.add(
     "absolute",
-    "bottom-6",
-    "left-4",
-    "text-black",
-    "text-sm",
+    "bottom-4",
+    "md:bottom-2",
+    "px-2",
+    "md:px-4",
+    "text-xs",
+    "md:text-sm",
     "block",
     "lg:hidden"
   );
@@ -116,11 +121,22 @@ function generateListing(listing) {
 
   const titleLg = document.createElement("h1");
   titleLg.textContent = listing.title;
-  titleLg.classList.add("text-lg", "hidden", "lg:block", "lg:group-hover:text-black");
+  titleLg.classList.add(
+    "pt-12",
+    "text-lg",
+    "hidden",
+    "lg:block",
+    "lg:group-hover:text-black",
+    "truncate"
+  );
 
-  const highestBidLg = document.createElement("h1");
+  const highestBidLg = document.createElement("h2");
   highestBidLg.textContent = highestBid > 0 ? `Highest Bid: $${highestBid}` : "No bids yet";
-  highestBidLg.classList.add("hidden", "lg:block", "lg:group-hover:text-black");
+  highestBidLg.classList.add(
+  "hidden",
+  "lg:block", 
+  "text-lg",
+  "lg:group-hover:text-black");
 
   const contentContainerLg = document.createElement("div");
   contentContainerLg.classList.add(
@@ -144,11 +160,14 @@ function generateListing(listing) {
   listingContainer.appendChild(contentContainerLg);
 
   listingPageLink.appendChild(listingContainer);
-
   listingWrapper.appendChild(listingPageLink);
 
   return listingWrapper;
 }
+
+
+
+
 
 function displayListings(listings) {
   const displayListingContainer = document.getElementById("display-listings");

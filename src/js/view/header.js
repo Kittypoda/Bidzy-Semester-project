@@ -1,18 +1,23 @@
 function createHeader() {
   const isLoggedIn = !!localStorage.getItem('accessToken'); 
+  const currentPath = window.location.pathname; 
 
   const headerHTML = `
     <header class="p-4 pb-6">
       <div class="flex justify-end">
-        <a href="${isLoggedIn ? '/src/html/profile.html' : '/src/html/login.html'}">
-          <button class="btn-primary">
-            My Bidzy
-          </button>
-        </a>
+        ${currentPath === '/src/html/profile.html' && isLoggedIn ? `
+          <button id="logout-button" class="btn-primary">Logout</button>
+        ` : `
+          <a href="${isLoggedIn ? '/src/html/profile.html' : '/src/html/login.html'}">
+            <button class="btn-primary">
+              My Bidzy
+            </button>
+          </a>
+        `}
       </div>
       <div class="flex flex-col md:justify-start mt-4">
         <a class="font-bagel text-2xl md:text-3xl mr-4" href="/index.html">Bidzy</a>
-        <h1>Bid it, own it, love it .</h1>
+        <h1 class="md:text-xl">Bid it, own it, love it.</h1>
       </div>
       <div class="flex mt-4">
         <form id="search-form" class="relative w-full max-w-lg">
@@ -33,8 +38,15 @@ function createHeader() {
     </header>
   `;
   document.body.insertAdjacentHTML('afterbegin', headerHTML);
+
+  const logoutButton = document.getElementById('logout-button');
+  if (logoutButton) {
+    logoutButton.addEventListener('click', () => {
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('userName');
+      window.location.href = '/index.html';
+    });
+  }
 }
 
 createHeader();
-
-
