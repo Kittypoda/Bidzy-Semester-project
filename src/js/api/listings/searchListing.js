@@ -62,7 +62,7 @@ function generateSearchResult(listing) {
 
   const title = document.createElement("h1");
   title.textContent = listing.title || "Untitled";
-  title.setAttribute("title", listing.title || "Untitled"); // Tooltip for full title
+  title.setAttribute("title", listing.title || "Untitled");
   title.classList.add(
     "absolute",
     "bottom-0",
@@ -74,7 +74,7 @@ function generateSearchResult(listing) {
     "font-bold",
     "pt-8",
     "py-2",
-    "px-2",
+    "px-4",
     "rounded-t-lg",
     "block",
     "h-24",
@@ -87,7 +87,7 @@ function generateSearchResult(listing) {
   highestBidElement.classList.add(
     "absolute",
     "bottom-2",
-    "px-2",
+    "px-4",
     "md:text-sm",
     "block",
   );

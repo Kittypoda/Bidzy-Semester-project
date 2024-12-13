@@ -2,80 +2,91 @@ import { API_AUCTION_PROFILE } from "../constants";
 import { API_KEY } from "../constants";
 
 async function fetchUserListings() {
-  const userName = JSON.parse(localStorage.getItem('userName')); 
+  const userName = JSON.parse(localStorage.getItem("userName"));
   if (!userName) {
-    alert('User not logged in. Redirecting to login...');
-    window.location.href = '/src/html/login.html';
+    alert("User not logged in. Redirecting to login...");
+    window.location.href = "/src/html/login.html";
     return;
   }
 
   try {
-    const accessToken = localStorage.getItem('accessToken');
+    const accessToken = localStorage.getItem("accessToken");
     if (!accessToken) {
-      alert('User is not logged in. Redirecting to login...');
-      window.location.href = '/src/html/login.html';
+      alert("User is not logged in. Redirecting to login...");
+      window.location.href = "/src/html/login.html";
       return;
     }
 
-    const response = await fetch(`${API_AUCTION_PROFILE}/${userName}?_listings=true`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
-        'X-Noroff-API-Key': API_KEY,
-      },
-    });
+    const response = await fetch(
+      `${API_AUCTION_PROFILE}/${userName}?_listings=true&_bids=true`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+          "X-Noroff-API-Key": API_KEY,
+        },
+      }
+    );
+
+    console.log("Fetching user listings..."); 
 
     if (response.ok) {
       const userProfile = await response.json();
+      console.log("User profile data:", userProfile); 
+
       const listings = userProfile.data.listings || [];
       displayListings(listings);
     } else {
       const error = await response.json();
-      console.error('Error fetching user listings:', error);
-      alert(`Failed to fetch listings: ${error.errors?.[0]?.message || 'Unknown error'}`);
+      console.error("Error fetching user listings:", error);
+      alert(
+        `Failed to fetch listings: ${error.errors?.[0]?.message || "Unknown error"}`
+      );
     }
   } catch (error) {
-    console.error('Error fetching user listings:', error);
-    alert('An unexpected error occurred.');
+    console.error("Error fetching user listings:", error);
+    alert("An unexpected error occurred.");
   }
 }
 
 function displayListings(listings) {
-  const listingsContainer = document.getElementById('listings-container');
-  listingsContainer.textContent = '';
+  const listingsContainer = document.getElementById("listings-container");
+  listingsContainer.textContent = "";
 
   if (listings.length === 0) {
-    listingsContainer.textContent = 'No listings found.';
+    listingsContainer.textContent = "No listings found.";
     return;
   }
 
   listings.forEach((listing) => {
-    const listingCard = document.createElement('div');
+    console.log("Processing listing:", listing); 
+
+    const listingCard = document.createElement("div");
     listingCard.classList.add(
-      'relative',
-      'overflow-hidden',
-      'rounded-lg',
-      'group',
-      'shadow-md',
-      'transition-colors',
-      'duration-300',
-      'hover:shadow-lg'
+      "relative",
+      "overflow-hidden",
+      "rounded-lg",
+      "group",
+      "shadow-md",
+      "transition-colors",
+      "duration-300",
+      "hover:shadow-lg"
     );
 
     const listingPageLink = document.createElement("a");
     listingPageLink.href = `/src/html/productpage.html?listingId=${listing.id}`;
     listingPageLink.classList.add("block", "h-full", "w-full");
 
-    const listingContainer = document.createElement('div');
+    const listingContainer = document.createElement("div");
     listingContainer.classList.add(
-      'h-64',
-      'w-full',
-      'relative',
-      'bg-cover',
-      'bg-center',
-      'transition-colors',
-      'duration-300'
+      "h-64",
+      "w-full",
+      "relative",
+      "bg-cover",
+      "bg-center",
+      "transition-colors",
+      "duration-300"
     );
 
     if (listing.media && Array.isArray(listing.media) && listing.media.length > 0) {
@@ -85,35 +96,38 @@ function displayListings(listings) {
         "url('https://images.unsplash.com/photo-1521193089946-7aa29d1fe776?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')";
     }
 
-    const overlay = document.createElement('div');
+    const overlay = document.createElement("div");
     overlay.classList.add(
-      'absolute',
-      'inset-0',
-      'bg-customDYellow',
-      'opacity-0',
-      'transition-opacity',
-      'duration-300'
+      "absolute",
+      "inset-0",
+      "bg-customDYellow",
+      "opacity-0",
+      "transition-opacity",
+      "duration-300"
     );
 
-    const title = document.createElement('h1');
-    title.textContent = listing.title || 'Untitled';
+    const title = document.createElement("h1");
+    title.textContent = listing.title || "Untitled";
+    title.setAttribute("title", listing.title || "Untitled"); 
     title.classList.add(
       "absolute",
-      "bottom-0",
-      "left-0",
-      "w-full",
-      "bg-customDYellow",
-      "text-black",
-      "text-sm",
-      "font-bold",
-      "py-2",
-      "px-4",
-      "rounded-t-lg",
-      "block",
-      "h-24"
+    "bottom-0",
+    "left-0",
+    "w-full",
+    "bg-customDYellow",
+    "text-black",
+    "text-sm",
+    "font-bold",
+    "pt-8",
+    "py-2",
+    "px-4",
+    "rounded-t-lg",
+    "block",
+    "h-24",
+    "truncate"
     );
 
-    const endsAt = document.createElement('div');
+    const endsAt = document.createElement("div");
     const endDate = new Date(listing.endsAt);
     const now = new Date();
     const timeDiff = endDate - now;
@@ -123,37 +137,37 @@ function displayListings(listings) {
       daysRemaining > 1
         ? `${daysRemaining} days left`
         : daysRemaining === 1
-        ? '1 day left'
-        : 'Ended';
+        ? "1 day left"
+        : "Ended";
 
     endsAt.classList.add(
-      'absolute',
-      'top-2',
-      'right-2',
-      'bg-customBlue',
-      'text-white',
-      'text-xs',
-      'font-baloo',
-      'py-1',
-      'px-2',
-      'rounded'
+      "absolute",
+      "top-2",
+      "right-2",
+      "bg-customBlue",
+      "text-white",
+      "text-xs",
+      "font-baloo",
+      "py-1",
+      "px-2",
+      "rounded"
     );
 
-    const highestBid =
-      listing.bids && listing.bids.length > 0
-        ? Math.max(...listing.bids.map((bid) => bid.amount))
-        : 0;
+    const highestBid = listing.bids && listing.bids.length > 0
+      ? Math.max(...listing.bids.map((bid) => bid.amount))
+      : 0;
 
-    const highestBidElement = document.createElement("h1");
+    console.log("Highest bid for listing:", listing.id, highestBid);
+
+    const highestBidElement = document.createElement("h2");
     highestBidElement.textContent =
       highestBid > 0 ? `Highest Bid: $${highestBid}` : "No bids yet";
     highestBidElement.classList.add(
       "absolute",
-      "bottom-6",
-      "left-4",
-      "text-black",
-      "text-sm",
-      "block",
+      "bottom-2",
+      "px-4",
+      "md:text-sm",
+      "block"
     );
 
     listingPageLink.appendChild(listingContainer);
@@ -168,6 +182,4 @@ function displayListings(listings) {
   });
 }
 
-
 fetchUserListings();
-
