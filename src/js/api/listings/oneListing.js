@@ -95,7 +95,7 @@ async function renderPage() {
 
   if (listing) {
     displayOneListing(listing);
-    renderBidSection(); // Call renderBidSection after displaying the listing
+    renderBidSection(); 
   } else {
     console.error('No data found for the specified listing ID.');
   }
