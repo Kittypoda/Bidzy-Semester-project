@@ -5,10 +5,10 @@ function createHeader() {
   const headerHTML = `
     <header class="p-4 pb-6">
       <div class="flex justify-end">
-        ${currentPath === '/Bidzy-Semester-project/src/html/profile/' && isLoggedIn ? `
+        ${currentPath === '/Bidzy-Semester-project/src/html/profile.html' && isLoggedIn ? `
           <button id="logout-button" class="btn-primary">Logout</button>
         ` : `
-          <a href="${isLoggedIn ? '/Bidzy-Semester-project/src/html/profile/' : '/Bidzy-Semester-project/src/html/login/'}">
+          <a href="${isLoggedIn ? '/Bidzy-Semester-project/src/html/profile.html' : '/Bidzy-Semester-project/src/html/login.html'}">
             <button class="btn-primary">
               My Bidzy
             </button>
@@ -44,7 +44,7 @@ function createHeader() {
     logoutButton.addEventListener('click', () => {
       localStorage.removeItem('accessToken');
       localStorage.removeItem('userName');
-      window.location.href = '//Bidzy-Semester-project/';
+      window.location.href = '/index.html';
     });
   }
 }
