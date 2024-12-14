@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Bidzy</title>
+  <link href="/src/css/styles.css" rel="stylesheet">
+  <script type="module" src="../js/app.js"></script>
+  <script src="https://kit.fontawesome.com/368689f934.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-customLYellow md:mx-32">
+  <div id="loader" class="fixed inset-0 bg-customDYellow flex justify-center items-center z-50">
+    <div class="text-white text-4xl font-bagel">Bidzy</div>
+  </div>
+  <header>
+  </header>
+  <main>
+    <section class="px-4 flex flex-col lg:flex-row lg:gap-32">
+      <div>
+      <div class="flex flex-col bg-customLBlue min-h-96 rounded-lg p-6 justify-center items-center">
+        <div class="h-32 w-32 rounded-full bg-customDYellow mb-4 bg-cover bg-center bg-no-repeat" id="avatar"></div>
+        <div class="font-baloo font-bold text-sm md:text-xl" id="hi-user"> Hi, user!</div>
+        <div class="font-baloo text-center pb-12" id="bio">dette er en bio</div>
+        <button id="edit-profile-btn" class="btn-secondary">Edit profile</button>
+      </div>
+      <div class="font-baloo font-bold text-sm pt-4 mb-4" id="credit">Your current credit:</div>
+     </div>
+
+      <div class="flex flex-col">
+        <div class="font-baloo font-bold max-w-[520px] text-xl  mb-4 lg:mt-6">What do you want<br> 
+        to do today?</div>
+        <div class="flex flex-col gap-4 pb-24 lg:pb-4">
+          <button id="create-listing-btn" class="btn-yellow">Create New Listing</button>
+          <a href="./mylistings.html"><button class="btn-yellow w-full">See my listings</button></a>
+          <button class="btn-yellow">See my bids</button>
+        </div>
+      </div>
+
+    </section>
+    
+    <!-- Popup for Editing Profile -->
+    <div id="edit-profile-popup" class="hidden fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center">
+      <div class="bg-customLBlue rounded-lg p-6 w-96">
+        <h2 class="text-lg font-bold font-baloo text-center  mb-2">Edit Profile</h2>
+        <form id="edit-profile-form" class="flex flex-col gap-4">
+          <div>
+            <input type="text" id="avatar-url" class="bg-customDYellow px-4 py-2 rounded-lg font-baloo shadow-sm placeholder-black w-full focus:ring focus:ring-customBlue focus:bg-white" placeholder="Enter avatar URL">
+          </div>
+          <div>
+            <textarea id="bio-text" class="bg-customDYellow px-4 py-2 rounded-lg font-baloo shadow-sm placeholder-black w-full focus:ring focus:ring-customBlue focus:bg-white" rows="3" placeholder="Enter your bio"></textarea>
+          </div>
+          <div class="flex justify-center gap-2">
+            <button type="submit" class="btn-secondary">Update</button>
+            <button type="button" id="cancel-edit-btn" class="btn-primary">Cancel</button> 
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Popup for Creating a New Listing -->
+<div id="create-listing-popup" class="hidden fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center">
+  <div class="bg-customLBlue rounded-lg p-6 w-96">
+    <h2 class="text-lg font-bold font-baloo text-center mb-2">Create New Listing</h2>
+    <form id="create-listing-form" class="flex flex-col gap-4">
+      <div>
+        <input type="text" id="listing-title" class="bg-customDYellow px-4 py-2 rounded-lg font-baloo shadow-sm placeholder-black w-full focus:ring focus:ring-customBlue focus:bg-white" placeholder="Enter listing title" required>
+      </div>
+      <div>
+        <textarea id="listing-description" class="bg-customDYellow px-4 py-2 rounded-lg font-baloo shadow-sm placeholder-black w-full focus:ring focus:ring-customBlue focus:bg-white" rows="3" placeholder="Enter listing description" required></textarea>
+      </div>
+      <div>
+        <input type="url" id="listing-media" class="bg-customDYellow px-4 py-2 rounded-lg font-baloo shadow-sm placeholder-black w-full focus:ring focus:ring-customBlue focus:bg-white" placeholder="Enter media URL" required>
+      </div>
+      <div>
+        <input type="datetime-local" id="listing-end-time" class="bg-customDYellow px-4 py-2 rounded-lg font-baloo shadow-sm placeholder-black w-full focus:ring focus:ring-customBlue focus:bg-white" required>
+      </div>
+      <div class="flex justify-center gap-2">
+        <button type="submit" class="btn-secondary">Publish Listing</button>
+        <button type="button" id="cancel-create-listing-btn" class="btn-primary">Cancel</button> 
+      </div>
+    </form>
+  </div>
+</div>
+    
+
+  </main> 
+</body>
+</html>

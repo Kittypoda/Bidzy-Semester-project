@@ -1,0 +1,1 @@
+const s="https://v2.api.noroff.dev",t="98989cfd-8eb5-4a5e-a99b-a22850f2e095",A=`${s}/auction`,o=`${A}/profiles`,a=`${A}/listings`,I=`${s}/auth`,n=`${I}/register`,_=`${I}/login`;export{a as A,t as a,n as b,_ as c,o as d};
