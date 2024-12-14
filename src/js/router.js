@@ -22,7 +22,7 @@ export default async function router(pathname = window.location.pathname) {
       await import('./api/listings/searchListing.js');
       await import('../js/api/ui/searchForm.js');
       break;
-    case '/Bidzy-Semester-project/src/html/login/':
+    case '/Bidzy-Semester-project/src/html/login.html/':
       await import('./api/ui/login.js');
       break;
       case '/Bidzy-Semester-project/src/html/search/':
