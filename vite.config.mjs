@@ -5,6 +5,13 @@ export default defineConfig({
   base: '/Bidzy-Semester-project/',
   build: {
     target: 'esnext',
+    rollupOptions: {
+      input: {
+        main: './index.html',
+        app: './src/js/app.js', 
+        router: './src/js/router.js', 
+      },
+    },
   },
   plugins: [
     viteStaticCopy({
