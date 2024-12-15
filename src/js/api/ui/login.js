@@ -30,7 +30,7 @@ async function onLogin(event) {
   } catch (error) {
     alert('login failed')
     console.error('Login failed', error)
-  } finally { window.location.href = '/Bidzy-Semester-project/html/profile.html';}
+  } finally { window.location.href = '/Bidzy-Semester-project/src/html/profile.html';}
 }
 
   const form = document.querySelector('#login-form');
