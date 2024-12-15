@@ -2,16 +2,14 @@ import { resolve } from "path";
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  appType: "mpa", // Multi-Page Application
-  base: "/Bidzy-Semester-project/", // Ditt GitHub Pages repo
+  appType: "mpa", 
+  base: "/Bidzy-Semester-project/", 
   build: {
     target: "esnext",
-    outDir: "./dist", // Output-mappen for bygde filer
+    outDir: "./dist", 
     rollupOptions: {
       input: {
-        // Hovedsiden
         main: resolve(__dirname, "./index.html"),
-        // Andre sider
         login: resolve(__dirname, "./src/html/login.html"),
         register: resolve(__dirname, "./src/html/register.html"),
         productpage: resolve(__dirname, "./src/html/productpage.html"),

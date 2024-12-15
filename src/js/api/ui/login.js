@@ -1,4 +1,5 @@
 import { API_AUTH_LOGIN } from "../constants";
+console.log(API_AUTH_LOGIN)
 
 async function onLogin(event) {
   event.preventDefault();
@@ -29,7 +30,7 @@ async function onLogin(event) {
   } catch (error) {
     alert('login failed')
     console.error('Login failed', error)
-  } finally { window.location.href = '/src/html/profile.html';}
+  } finally { window.location.href = '/Bidzy-Semester-project/html/profile.html';}
 }
 
   const form = document.querySelector('#login-form');
