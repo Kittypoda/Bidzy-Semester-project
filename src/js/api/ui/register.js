@@ -7,6 +7,13 @@ async function onRegister(event) {
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
 
+  
+  const emailPattern = /@(stud\.noroff\.no|noroff\.no)$/;
+  if (!emailPattern.test(email)) {
+    alert('Please provide a Noroff email');
+    return; 
+  }
+
   const userData = { name, email, password };
   console.log(userData);
 
@@ -29,7 +36,7 @@ async function onRegister(event) {
 
     return json;
   } catch (error) {
-    alert('Registration failed');
+    alert('Registration failed.');
     console.error('Registration failed', error);
   } finally {
     window.location.href = '/Bidzy-Semester-project/src/html/login.html';
