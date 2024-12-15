@@ -9,8 +9,7 @@ const editProfileForm = document.getElementById('edit-profile-form');
 function getLoggedInUserName() {
   const userName = JSON.parse(localStorage.getItem('userName')); 
   if (!userName) {
-    alert('Unable to identify the logged-in user. Redirecting to login...');
-    window.location.href = '/src/html/login.html'; 
+    window.location.href = '/Bidzy-Semester-project/src/html/login.html'; 
     return null;
   }
   return userName;
@@ -23,8 +22,7 @@ async function fetchUserProfile() {
   try {
     const accessToken = localStorage.getItem('accessToken');
     if (!accessToken) {
-      alert('User is not logged in. Redirecting to login...');
-      window.location.href = '/src/html/login.html';
+      window.location.href = '/Bidzy-Semester-project/src/html/login.html';
       return;
     }
 
@@ -102,8 +100,7 @@ editProfileForm.addEventListener('submit', async (e) => {
   try {
     const accessToken = localStorage.getItem('accessToken');
     if (!accessToken) {
-      alert('User is not logged in. Redirecting to login...');
-      window.location.href = '/src/html/login.html';
+      window.location.href = '/Bidzy-Semester-project/src/html/login.html';
       return;
     }
 

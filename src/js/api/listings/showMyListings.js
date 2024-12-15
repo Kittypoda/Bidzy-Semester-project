@@ -4,16 +4,14 @@ import { API_KEY } from "../constants";
 async function fetchUserListings() {
   const userName = JSON.parse(localStorage.getItem("userName"));
   if (!userName) {
-    alert("User not logged in. Redirecting to login...");
-    window.location.href = "/src/html/login.html";
+    window.location.href = "/Bidzy-Semester-project/src/html/login.html";
     return;
   }
 
   try {
     const accessToken = localStorage.getItem("accessToken");
     if (!accessToken) {
-      alert("User is not logged in. Redirecting to login...");
-      window.location.href = "/src/html/login.html";
+      window.location.href = "/Bidzy-Semester-project/src/html/login.html";
       return;
     }
 
@@ -75,7 +73,7 @@ function displayListings(listings) {
     );
 
     const listingPageLink = document.createElement("a");
-    listingPageLink.href = `/src/html/productpage.html?listingId=${listing.id}`;
+    listingPageLink.href = `/Bidzy-Semester-project/src/html/productpage.html?listingId=${listing.id}`;
     listingPageLink.classList.add("block", "h-full", "w-full");
 
     const listingContainer = document.createElement("div");
