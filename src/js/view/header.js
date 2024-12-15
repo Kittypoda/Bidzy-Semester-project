@@ -16,7 +16,7 @@ function createHeader() {
         `}
       </div>
       <div class="flex flex-col md:justify-start mt-4">
-        <a class="font-bagel text-2xl md:text-3xl mr-4" href="/index.html">Bidzy</a>
+        <a class="font-bagel text-2xl md:text-3xl mr-4" href="/Bidzy-Semester-project/">Bidzy</a>
         <h1 class="md:text-xl">Bid it, own it, love it.</h1>
       </div>
       <div class="flex mt-4">
@@ -44,7 +44,7 @@ function createHeader() {
     logoutButton.addEventListener('click', () => {
       localStorage.removeItem('accessToken');
       localStorage.removeItem('userName');
-      window.location.href = '/index.html';
+      window.location.href = '/Bidzy-Semester-project/';
     });
   }
 }

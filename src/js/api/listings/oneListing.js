@@ -204,7 +204,7 @@ function renderBidSection() {
     loginButton.textContent = 'Log in to Bid';
     loginButton.classList.add('btn-secondary', 'mb-4', 'w-full');
     loginButton.addEventListener('click', () => {
-      window.location.href = '/src/html/login.html';
+      window.location.href = '/Bidzy-Semester-project/src/html/login.html';
     });
 
     contentWrapper.appendChild(loginButton);

@@ -29,7 +29,7 @@ function generateSearchResult(listing) {
   );
 
   const listingPageLink = document.createElement("a");
-  listingPageLink.href = `./productpage.html?listingId=${listing.id}`;
+  listingPageLink.href = `/Bidzy-Semester-project/src/html/productpage.html?listingId=${listing.id}`;
   listingPageLink.classList.add("block", "h-full", "w-full");
 
   const listingContainer = document.createElement("div");

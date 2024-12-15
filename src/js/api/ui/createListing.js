@@ -37,8 +37,8 @@ createListingForm.addEventListener('submit', async (e) => {
   try {
     const accessToken = localStorage.getItem('accessToken');
     if (!accessToken) {
-      alert('User is not logged in. Redirecting to login...');
-      window.location.href = '/src/html/login.html';
+      alert('You need to log in to create a listing');
+      window.location.href = '/Bidzy-Semester-project/src/html/login.html';
       return;
     }
 
@@ -59,7 +59,7 @@ createListingForm.addEventListener('submit', async (e) => {
       createListingPopup.classList.add('hidden');
 
     
-      window.location.href = '/src/html/mylistings.html';
+      window.location.href = '/Bidzy-Semester-project/src/html/mylistings.html';
     } else {
       const error = await response.json();
       console.error('Error creating listing:', error);
