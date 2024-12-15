@@ -54,7 +54,7 @@ function displayOneListing(listing) {
   const title = document.createElement('h1');
   title.textContent = listing.title || 'No title available';
 
-  const highestBidElement = document.createElement('h1');
+  const highestBidElement = document.createElement('h2');
   const highestBid = listing.bids && listing.bids.length > 0 ? Math.max(...listing.bids.map(bid => bid.amount)) : 0;
   highestBidElement.textContent = `Highest bid: ${highestBid > 0 ? `$${highestBid}` : 'No bids yet'}`;
 
@@ -62,7 +62,7 @@ function displayOneListing(listing) {
   const totalBids = listing.bids ? listing.bids.length : 0;
   totalBidsElement.textContent = `Total bids: ${totalBids}`;
 
-  const endsAt = document.createElement('h1');
+  const endsAt = document.createElement('h2');
   const endDate = new Date(listing.endsAt);
   const now = new Date();
   const timeDiff = endDate - now;
@@ -153,9 +153,9 @@ function renderBidSection() {
   const contentWrapper = document.createElement('div');
   contentWrapper.classList.add('p-6');
 
-  const header = document.createElement('h1');
+  const header = document.createElement('h2');
   header.textContent = 'Love it? Bid it';
-  header.classList.add('font-bold', 'mb-4');
+  header.classList.add('mb-4');
   contentWrapper.appendChild(header);
 
   const token = localStorage.getItem('accessToken');
