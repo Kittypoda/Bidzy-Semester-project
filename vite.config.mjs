@@ -1,27 +1,26 @@
-import { defineConfig } from 'vite';
-import { viteStaticCopy } from 'vite-plugin-static-copy';
+import { resolve } from "path";
+import { defineConfig } from "vite";
 
 export default defineConfig({
-  base: '/Bidzy-Semester-project/',
+  appType: "mpa", // Multi-Page Application
+  base: "/Bidzy-Semester-project/", // Ditt GitHub Pages repo
   build: {
-    target: 'esnext',
+    target: "esnext",
+    outDir: "./dist", // Output-mappen for bygde filer
     rollupOptions: {
       input: {
-        main: './index.html',
-        app: './src/js/app.js', 
-        router: './src/js/router.js', 
+        // Hovedsiden
+        main: resolve(__dirname, "./index.html"),
+        // Andre sider
+        login: resolve(__dirname, "./src/html/login.html"),
+        register: resolve(__dirname, "./src/html/register.html"),
+        productpage: resolve(__dirname, "./src/html/productpage.html"),
+        profile: resolve(__dirname, "./src/html/profile.html"),
+        search: resolve(__dirname, "./src/html/search.html"),
+        mylistings: resolve(__dirname, "./src/html/mylistings.html"),
       },
     },
   },
-  plugins: [
-    viteStaticCopy({
-      targets: [
-        {
-          src: 'src/html/**/*',
-          dest: '.',
-        },
-      ],
-    }),
-  ],
 });
+
 
