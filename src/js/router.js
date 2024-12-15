@@ -6,7 +6,9 @@ export default async function router(pathname = window.location.pathname) {
   try {
     console.log("Current pathname:", pathname);
 
-    switch (pathname) {
+    const cleanedPathname = pathname.replace('/src/html/', '/');
+
+    switch (cleanedPathname) {
       case '/Bidzy-Semester-project/':
       case '/Bidzy-Semester-project/index.html':
         await import('./view/header');
@@ -14,6 +16,10 @@ export default async function router(pathname = window.location.pathname) {
         await import('./api/listings/searchListing.js');
         await import('./api/ui/searchForm.js');
         await import('./api/ui/createListing.js');
+        break;
+
+      case '/Bidzy-Semester-project/login.html':
+        await import('./api/ui/login.js');
         break;
 
       case '/Bidzy-Semester-project/register.html':
@@ -25,10 +31,6 @@ export default async function router(pathname = window.location.pathname) {
         await import('./api/listings/oneListing.js');
         await import('./api/listings/searchListing.js');
         await import('./api/ui/searchForm.js');
-        break;
-
-      case '/Bidzy-Semester-project/login.html':
-        await import('./api/ui/login.js');
         break;
 
       case '/Bidzy-Semester-project/search.html':
