@@ -43,7 +43,7 @@ function displayOneListing(listing) {
 
   const mediaWrapper = document.createElement('div');
   const media = document.createElement('img');
-  media.classList.add('rounded-md', 'min-w-80', 'object-cover', 'h-80');
+  media.classList.add('rounded-md', 'min-w-80', 'object-cover', 'h-96');
   media.src = listing.media && listing.media.length > 0 ? listing.media[0].url : 'https://images.unsplash.com/photo-1557683316-973673baf926?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGNvbG9yfGVufDB8fDB8fHww';
   media.alt = listing.media && listing.media.length > 0 ? listing.media[0].alt : 'Default media';
   mediaWrapper.appendChild(media);
@@ -53,16 +53,20 @@ function displayOneListing(listing) {
 
   const title = document.createElement('h1');
   title.textContent = listing.title || 'No title available';
+  title.classList.add('text-sm', 'lg:text-xl')
 
   const highestBidElement = document.createElement('h2');
   const highestBid = listing.bids && listing.bids.length > 0 ? Math.max(...listing.bids.map(bid => bid.amount)) : 0;
   highestBidElement.textContent = `Highest bid: ${highestBid > 0 ? `$${highestBid}` : 'No bids yet'}`;
+  highestBidElement.classList.add('text-sm', 'lg:text-xl')
 
-  const totalBidsElement = document.createElement('h1');
+  const totalBidsElement = document.createElement('h2');
   const totalBids = listing.bids ? listing.bids.length : 0;
   totalBidsElement.textContent = `Total bids: ${totalBids}`;
+  totalBidsElement.classList.add('text-sm', 'lg:text-xl')
 
   const endsAt = document.createElement('h2');
+  endsAt.classList.add('text-sm', 'lg:text-xl')
   const endDate = new Date(listing.endsAt);
   const now = new Date();
   const timeDiff = endDate - now;
@@ -71,13 +75,20 @@ function displayOneListing(listing) {
 
   const description = document.createElement('p');
   description.textContent = listing.description || 'No description available';
-  description.classList.add('py-4', 'max-w-80');
+  description.classList.add('py-2', 'max-w-80');
 
-  infoWrapper.append(title, highestBidElement, totalBidsElement, endsAt, description);
+  const createdAt = document.createElement('p');
+  createdAt.textContent = `Published: ${new Date(listing.created).toLocaleDateString()}`;
+
+  const updatedAt = document.createElement('p');
+  updatedAt.textContent = `Last updated: ${new Date(listing.updated).toLocaleDateString()}`;
+
+  infoWrapper.append(title, highestBidElement, totalBidsElement, endsAt, description, createdAt, updatedAt);
   listingWrapper.append(mediaWrapper, infoWrapper);
 
   displayListingContainer.appendChild(listingWrapper);
 }
+
 
 async function renderPage() {
   const parameterString = window.location.search;
