@@ -17,7 +17,7 @@ function createHeader() {
       </div>
       <div class="flex flex-col md:justify-start mt-4">
         <a class="font-bagel text-2xl md:text-3xl mr-4" href="/Bidzy-Semester-project/">Bidzy</a>
-        <h1 class="md:text-xl">Bid it, own it, love it.</h1>
+        <h1 class="md:text-xl font-extrabold">Bid it, own it, love it.</h1>
       </div>
       <div class="flex mt-4">
         <form id="search-form" class="relative w-full max-w-lg">
