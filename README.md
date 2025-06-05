@@ -1,7 +1,16 @@
 # Bidzy - Bid it, own it, love it.
 
-Bidzy is an auction platform for listing, searching, and bidding on products. 
-This project is built using Vite, TailwindCSS, and JavaScript.
+Bidzy is a modern and playful auction platform for listing, discovering, and bidding on second-hand items. Designed for a younger audience that values sustainability and aesthetics, Bidzy combines smooth user interactions with clean, responsive design.
+
+This project was developed as part of a front-end development course at Noroff, with a focus on usability, accessibility, and code structure. The site is fully responsive and optimized for both mobile and desktop, aiming to make the auction experience feel simple, intuitive, and fun.
+
+> Technologies used: **Vite**, **Tailwind CSS**, and **Vanilla JavaScript**.  
+> External data is fetched from a REST API that handles users, listings, bids, and authentication.
+
+---
+
+![Responsive design of Bidzy](./screenshots/bidzyresponsive.png)
+
 
 ## 1. Prerequisites 
 Before you set up the project, make sure you have the following installed:
@@ -50,4 +59,4 @@ To create a production-ready version of the project, run:
 
         npm run build
 
-This will generate a dist folder with all the optimized and bundled files.    
+This will generate a dist folder with all the optimized and bundled files.  
